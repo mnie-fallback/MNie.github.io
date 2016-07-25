@@ -1,9 +1,11 @@
 ---
 layout: page
-subtitle: About me
+title: About me
 ---
 
-Hi! My name is Michał Niegrzybowski I'm a .Net developer and also an IT student from Gdańsk University of Technology (GUT). 
+Hi,
+
+my name is Michał Niegrzybowski I'm a .Net developer and also an IT student from Gdańsk University of Technology (GUT). 
 
 ### More information
 
