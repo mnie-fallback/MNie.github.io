@@ -12,13 +12,13 @@ My first post I would like to dedicate Azure, namely the function sentiment from
 The module itself gives us many opportunities, from text study to building recommendation systems. 
 Api Text Analytics gives us the ability to detect sentiment, keywords, topics and the language in which text is written. 
 In contrast, the above-mentioned function, examines the sentiment of the text. What does it mean? It can determine whether a statement/text has a positive or negative undertone. 
-I decided it would be fun to "miracle" to test and see how it works.
+I decided it would be fun to test it and see how it works.
 
 So, where to start?
 First of all, we need to have an account on Azure. Then we need to add to it a Cognitive Services module. 
 Now it would be nice to throw our data (comments, posts, text, whatever we want to check) and generate some results.
 
-But after that. First, we need to know what data format is accepted by the function. This format is json formatted as follows:
+But after that. First, we need to know what data format is accepted by the function. This format is json, formatted as follows:
 
 <script src="https://gist.github.com/MNie/a2a75632038748f9fc502b805f9706fd.js"></script>
 
@@ -42,7 +42,7 @@ At this point we need a 'api_key', which can be found in the Cognitive Services 
 
 <script src="https://gist.github.com/MNie/85aebd24f5e1d14c3a7c744e661995f8.js"></script>
 
-As we can see in the function 'getSentimentScore' it sends POST request, which in the header to the key 'OCP-APIM-Subscription-Key' assigned a 'api_key', while the body contains our JSON. 
+As we can see in the function 'getSentimentScore' it sends POST request, which in the header to the key 'OCP-APIM-Subscription-Key' assigned an 'api_key', while the body contains our JSON. 
 Question is what will give us the api?
 
 It will give us the data in the following format:
@@ -59,7 +59,7 @@ In addition, at the end results are sorted in ascending order, so at the beginni
 
 That's probably all. As a result, I have a small little script that converts my comments, it does request to Azure for their semantic evaluation, and finally returns to me a sorted result combined with a set of an input.
 
-Question function sentiment is working properly? Amazingly, the result looks as okay. 
+Question is, is a sentiment function working properly? Amazingly, the result looks okay. 
 Comments having a negative undertone have the lowest scores, while those positive indeed achieve a high rating, I did not notice any 'irregularities in the operation of the module.'
 Here is an output from script:
 
@@ -69,7 +69,7 @@ Only puzzling is that the text 'good' has a higher rating from a 'very good' and
 
 ![Image of good and very good](https://mnie.github.com/img/AzureTextAnalyticSemantic/good.png)
 
-To sum up, I would recommend anyone to try this function to determine how customers perceive your product, by examining their comments. 
-In my case, the results came out really good and I'm going to use them in improving their applications.
+To sum up, I would recommend anyone to try this function to determine how customers perceive your product(s), by examining their comments. 
+In my case, the results came out really good and I'm going to use them in improving my applications.
 
 All code could be found [here](https://github.com/MNie/AzureTextAnalysis).
