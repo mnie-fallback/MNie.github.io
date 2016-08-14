@@ -5,7 +5,10 @@ title: Azure Text Analytics Api - Are your users happy?
 
 Hi!
 
-My first post I would like to dedicate Azure, namely the function sentiment from Text Analytics api, from module Cognitive Services, of which the last I heard. 
+My first post I would like to dedicate Azure, namely the function sentiment from Text Analytics api, from module Cognitive Services, of which the last I heard.
+ 
+![Cognitive services module in azure](https://mnie.github.com/img/AzureTextAnalyticSemantic/module.png)
+
 The module itself gives us many opportunities, from text study to building recommendation systems. 
 Api Text Analytics gives us the ability to detect sentiment, keywords, topics and the language in which text is written. 
 In contrast, the above-mentioned function, examines the sentiment of the text. What does it mean? It can determine whether a statement/text has a positive or negative undertone. 
@@ -33,12 +36,15 @@ By using the function 'mapi' I generated unique identifiers, super! I've also ad
 Comments in my case are in English, but I decided to arbitrarily set the attribute 'language' to 'en'.
 
 We already have input, what now? Put it to the Azure! For this purpose I wrote a few more lines of code that sends the correct request to the Text Analytics API with properly formatted JSON. 
-At this point we need a 'api_key', which can be found in the Cognitive Services module settings.
+At this point we need a 'api_key', which can be found in the Cognitive Services module settings (it is shown on an image, where we can found it).
+
+![api_key](https://mnie.github.com/img/AzureTextAnalyticSemantic/api_key.png)
 
 <script src="https://gist.github.com/MNie/85aebd24f5e1d14c3a7c744e661995f8.js"></script>
 
 As we can see in the function 'getSentimentScore' it sends POST request, which in the header to the key 'OCP-APIM-Subscription-Key' assigned a 'api_key', while the body contains our JSON. 
 Question is what will give us the api?
+
 It will give us the data in the following format:
 
 <script src="https://gist.github.com/MNie/29a7fd3bf84393304c53f3c176235db3.js"></script>
@@ -54,8 +60,12 @@ In addition, at the end results are sorted in ascending order, so at the beginni
 That's probably all. As a result, I have a small little script that converts my comments, it does request to Azure for their semantic evaluation, and finally returns to me a sorted result combined with a set of an input.
 
 Question function sentiment is working properly? Amazingly, the result looks as okay. 
-Comments having a negative undertone have the lowest scores, while those positive indeed achieve a high rating, I did not notice any 'irregularities in the operation of the module.' 
-Only puzzling is that the text 'good' has a higher rating from a 'very good' ... :)
+Comments having a negative undertone have the lowest scores, while those positive indeed achieve a high rating, I did not notice any 'irregularities in the operation of the module.'
+Here is an output from script:
+
+<script src="https://gist.github.com/MNie/9441041ee13b29b2f1b5a929475abf33.js"></script> 
+
+Only puzzling is that the text 'good' has a higher rating from a 'very good' and 'bad' is worse than 'very bad' ... :)
 
 ![Image of good and very good](https://mnie.github.com/img/AzureTextAnalyticSemantic/good.png)
 
