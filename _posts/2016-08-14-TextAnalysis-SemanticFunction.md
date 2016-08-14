@@ -62,4 +62,4 @@ Only puzzling is that the text 'good' has a higher rating from a 'very good' ...
 To sum up, I would recommend anyone to try this function to determine how customers perceive your product, by examining their comments. 
 In my case, the results came out really good and I'm going to use them in improving their applications.
 
-All code could be found [here.](https://github.com/MNie/AzureTextAnalysis)
+All code could be found [here](https://github.com/MNie/AzureTextAnalysis).
