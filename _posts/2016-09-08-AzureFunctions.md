@@ -170,7 +170,7 @@ What's more, we can monitor how often someone tried to call our function with mo
 It seems that azurefunction is a very powerful tool, eg. for some tasks run successively from time to time. 
 With Continuous Integration and integration with version control systems, as well as through a tool to support the monitoring function, so check what request and with which arguments as it ended, finishing on performance machines which checks the performance of our functions. 
 Regarding the possibility of writing the azure funtions in F# it is definitely worth to try on Your own and also to wait for the next update, which surely will bring more default triggers and more examples. 
-What could help in the creation of functions int F#.
+What could help in the creation of functions in F#.
 
 All code could be found [here](https://github.com/MNie/IdsGeneratorAzureFunctions).
 Thank you :)
