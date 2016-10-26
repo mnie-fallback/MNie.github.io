@@ -12,14 +12,13 @@ Why I think it might be fun? As a rule, such solutions can be found in C# with u
 
 The aim of this Kata will be to create a "calculator". 
 Let's start with the steps that should be implemented:
-1. Create a class Calculator, which will include the Add method. 
-	The method should accept a single parameter of type string.
-	a. We start from the fact that passing an empty string to a method should return 0.
-	b. For single argument should return numeric value of this exact parameter, otherwise it should return 0.
+
+1. Create a class Calculator, which will include the Add method. The method should accept a single parameter of type string.
+--1. We start from the fact that passing an empty string to a method should return 0.
+--2. For single argument should return numeric value of this exact parameter, otherwise it should return 0.
 2. Function (add) should be converted in such a way that it can accept multiple arguments that the input string will be separated by a space.
 3. Our method should also be able to separate the input arguments with the newline character '\ n'.
-4. We need to modify our method so that it will accept another argument. 
-	This argument will tell our function how the input delimiter looks like. Delimiter should be of type string.
+4. We need to modify our method so that it will accept another argument. This argument will tell our function how the input delimiter looks like. Delimiter should be of type string.
 5. The next step is to modify the method so that it threw an exception when input argument will contain any negative numbers.
 6. The last task is that, the numbers greater than 1000 should be skipped during summation.
 
