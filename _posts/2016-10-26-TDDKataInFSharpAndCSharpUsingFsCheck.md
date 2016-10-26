@@ -23,8 +23,7 @@ Let's start with the steps that should be implemented:
 5. The next step is to modify the method so that it threw an exception when input argument will contain any negative numbers.
 6. The last task is that, the numbers greater than 1000 should be skipped during summation.
 
-If you want to do this kata on Your own, here is an empty project with a list of tests to implement:
-https://github.com/MNie/TDDKataFirst/tree/kataStepByStep
+If you want to do this kata on Your own, [here is an empty project](https://github.com/MNie/TDDKataFirst/tree/kataStepByStep) with a list of tests to implement.
 
 Here is my resolution :)
 Well, since we have written in paragraphs what we should do, 
@@ -214,6 +213,7 @@ The mere use of FsCheck with such a problem may seem like rifle shooting to the 
 
 Thanks for reading.
 All source could be found on github:
-All tests: https://github.com/MNie/TDDKataFirst/tree/allTests
-Final Solution: https://github.com/MNie/TDDKataFirst
-Kata step by step: https://github.com/MNie/TDDKataFirst/tree/kataStepByStep
+
+[All tests](https://github.com/MNie/TDDKataFirst/tree/allTests).
+[Final Solution](https://github.com/MNie/TDDKataFirst).
+[Kata step by step](https://github.com/MNie/TDDKataFirst/tree/kataStepByStep).
