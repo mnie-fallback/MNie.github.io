@@ -14,8 +14,8 @@ The aim of this Kata will be to create a "calculator".
 Let's start with the steps that should be implemented:
 
 1. Create a class Calculator, which will include the Add method. The method should accept a single parameter of type string.
-    a. We start from the fact that passing an empty string to a method should return 0.
-    b. For single argument should return numeric value of this exact parameter, otherwise it should return 0.
+    1. We start from the fact that passing an empty string to a method should return 0.
+    2. For single argument should return numeric value of this exact parameter, otherwise it should return 0.
 2. Function (add) should be converted in such a way that it can accept multiple arguments that the input string will be separated by a space.
 3. Our method should also be able to separate the input arguments with the newline character '\ n'.
 4. We need to modify our method so that it will accept another argument. This argument will tell our function how the input delimiter looks like. Delimiter should be of type string.
@@ -47,7 +47,7 @@ We run the tests again, and as we can see they are green.
 
 ![ok](https://mnie.github.com/img/TDDKata1/1fs.png)
 
-So let's go to the point 1b, this time if an input argument has a numeric value it should be return. Otherwise, we should return 0.
+So let's go to the point 1.2, this time if an input argument has a numeric value it should be return. Otherwise, we should return 0.
 To do this, I wrote FsCheck test. 
 Why? It will allow us to test the method on a number of input data, and not just a single "input". 
 As I mentioned earlier FsCheck test run test for various inputs 100 times (this is the default value, which can be changed in the custom configuration, about which I say more in point 4). 
@@ -70,7 +70,7 @@ Worth noting here is also a way of generating input data, which looks as follows
 
 We can see that we generate any numeric value int and then convert it to a string to fit the input function. 
 The Arbitrary type means an instance that wraps the test data generator and shrinker (which is responsible for matching the data that don't meet the condition of our check, and 'shrinks' it to the 'smallest' one which is not passing the test). 
-In contrast, Arb.Generate <Titem> is responsible for generating the data type Titem, in this case (test 1b), they are integers.
+In contrast, Arb.Generate <Titem> is responsible for generating the data type Titem, in this case (test 1.2), they are integers.
 We also could write C# code like this:
 
 <script src="https://gist.github.com/MNie/552cf544a57ea2715594e3a948e593bc.js"></script>
