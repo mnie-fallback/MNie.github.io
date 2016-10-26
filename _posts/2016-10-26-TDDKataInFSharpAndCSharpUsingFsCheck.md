@@ -214,6 +214,6 @@ The mere use of FsCheck with such a problem may seem like rifle shooting to the 
 Thanks for reading.
 All source could be found on github:
 
-[All tests](https://github.com/MNie/TDDKataFirst/tree/allTests).
-[Final Solution](https://github.com/MNie/TDDKataFirst).
-[Kata step by step](https://github.com/MNie/TDDKataFirst/tree/kataStepByStep).
+* [All tests](https://github.com/MNie/TDDKataFirst/tree/allTests).
+* [Final Solution](https://github.com/MNie/TDDKataFirst).
+* [Kata step by step](https://github.com/MNie/TDDKataFirst/tree/kataStepByStep).
