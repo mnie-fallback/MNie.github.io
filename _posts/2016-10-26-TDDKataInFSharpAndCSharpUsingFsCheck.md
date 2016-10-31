@@ -7,8 +7,8 @@ Hey,
 
 Browsing Roy Osherove's blog I saw a short kata tasks designed to test in practice TDD approach to software development. 
 The purpose of this kata was to create a simple calculator using TDD. 
-I thought it would be a nice idea to create and describe the solutions of this Kata by FSChecka, xUnit and C# and F#. 
-Why I think it might be fun? As a rule, such solutions can be found in C# with usage of NUnit or xUnit, and here we will try an entirely different approach to writing unit tests. at any rate unit.
+I thought it would be a nice idea to create and describe the solutions of this Kata by FSCheck, xUnit and C#/F#. 
+Why I think it might be fun? As a rule, such solutions can be found in C# with usage of NUnit or xUnit and here we will try an entirely different approach to writing unit test. at any rate unit.
 
 The aim of this Kata will be to create a "calculator". 
 Let's start with the steps that should be implemented:
