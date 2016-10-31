@@ -208,7 +208,7 @@ Add method:
 In summary due FsCheck we have the opportunity to test the reaction of the data for a large range input.
 What we would not be able to fully check via normal unit testing eg. In NUnit or xUnit (which by the way have attributes to fire tests with specific parameters TestCase for NUnit and Inline for xUnit). 
 With random testing we could draw a conclusion about delimiters that they can not be a number what could be impossible to achieve with conventional unit tests. 
-The mere use of FsCheck with such a problem may seem like rifle shooting to the fly, but it has to show us the basic features and capabilities of property-based testingu and random testing using FsCheck, which has the intention to set/check properties of arguments/property.
+The mere use of FsCheck with such a problem may seem like rifle shooting to the fly, but it has to show us the basic features and capabilities of property-based testingu and random testing using FsCheck, which has the intention to set/check properties of arguments/properties.
 
 Thanks for reading.
 All source could be found on github:
