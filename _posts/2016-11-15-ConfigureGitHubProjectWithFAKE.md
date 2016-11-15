@@ -26,7 +26,7 @@ What we have to do? You must add an empty file named: .travis.yaml, to the root 
 For now, we want to only build the project. What we have to write in the previously added file (.travis.yml)?
 
 <script src="https://gist.github.com/MNie/23c07ebecc776acf52f84f352c1c1d68.js"></script>
- 
+
 So going throught of each parameters, the language is defined as csharp, for projects written in C#/F#/VB. 
 Solution is a sln file. In step install travis perform operations associated with preparing everything for building/releasing tests, etc. In our case, we restore nuget packages for our project. 
 In step script, travis fired all kind of scripts, and in our case it is the command for building a project in the release configuration.
@@ -34,9 +34,9 @@ Well we have a building script right now, but where is the FAKE which is mention
 Well, we come to the final version of the Travis (yml) script, which will be running another script (FAKE script). 
 Which will have the task to build the project and then run all tests.
 File .travis.yml looks at this point like this:
- 
+
 <script src="https://gist.github.com/MNie/a05fbd2a223681a465110157a6789d37.js"></script>
- 
+
 As we can see, there are some changes in a script, in addition to nuget packages restore, we add commands to install the FAKE, which we will need to launch our script (FAKE script). 
 The last point is to install xunit runner package to launch project tests (in this case FsCheck specs). 
 Let us now turn to FAKE script.
@@ -58,7 +58,7 @@ The effect of the script is shown in the picture below:
 Build script steps are marked in green. 
 Each of the steps as shown in the photo, or on the website(link) is logged nicely, so we have insight into what is currently being done, eg. How the test are fired, what package is pulled etc. 
 Regarding the same steps of the script that builds when something goes wrong, this step is colored red instead of green as shown in the following picture / link.
- 
+
 ![error](https://mnie.github.com/img/20161115githubtravisfake/error.png)
 
 As we can see. We build a CI solution for project in a simple and quick way, by Travis and Fake. 
