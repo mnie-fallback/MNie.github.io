@@ -2,10 +2,11 @@
 layout: post
 title: How to configure Your open source project on github with FAKE
 ---
- 
+
 Hey,
+
  
-Often we create/contribute to the open-source projects. There comes a time that we want to make that claim, or to "give" project to a "community", to help us in its implementation. 
+We often create/contribute to the open-source projects. There comes a time that we want to make that claim, or to "give" project to a "community", to help us in its implementation. 
 In further improving and developing it.
 What to do in such a case? Where to make the project so that others could contribute to it? The answer to this question in 99% of cases will be a "github".
 We create repository on a github, we put our code there, the community start contributing. But with the time going.. Do we want everyone to have the opportunity to throw something into the main "branch"? 
@@ -62,8 +63,9 @@ Regarding the same steps of the script that builds when something goes wrong, th
 
 As we can see. We build a CI solution for project in a simple and quick way, by Travis and Fake. 
 So you do not have to worry about whether our project "works" properly. When someone adds new features to project, or wants to add it.
-In order to further expand the script and writing/firing more advanced things I recommend You to read a fantastic FAKE documentation, which is available here: http://fsharp.github.io/FAKE/gettingstarted.html
- 
+In order to further expand the script and writing/firing more advanced things I recommend You to read a fantastic FAKE documentation, which is available [here](http://fsharp.github.io/FAKE/gettingstarted.html).
+
+
 * [repository](https://github.com/MNie/DateSeqGenerator).
 * [green build](https://travis-ci.org/MNie/DateSeqGenerator/builds/174579724).
 * [red build](https://travis-ci.org/MNie/DateSeqGenerator/builds/174566325).
