@@ -5,7 +5,6 @@ title: How to configure Your open source project on github with FAKE
 
 Hey,
 
- 
 We often create/contribute to the open-source projects. There comes a time that we want to make that claim, or to "give" project to a "community", to help us in its implementation. 
 In further improving and developing it.
 What to do in such a case? Where to make the project so that others could contribute to it? The answer to this question in 99% of cases will be a "github".
