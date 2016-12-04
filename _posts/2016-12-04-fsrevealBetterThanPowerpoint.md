@@ -33,7 +33,7 @@ What kind of "cool" things mentioned? Among others:
 * Our presentation can be hosted as a web page
 
  ![error](https://mnie.github.com/img/2016124FSREVEAL/site.png)
- [Link to presentation](https://mnie.github.io/FsCheckIntroduction/index.html#/)
+ [Link to presentation](https://mnie.github.io/FsCheckIntroduction)
 
 * Editing a presentation by a couple of people should not be a problem, because it takes place in an analogous manner to cooperation with any project on github.
 
@@ -50,6 +50,7 @@ In summary, there is an alternative to PowerPoint, which gives us a wide range o
 Moreover, it seems that we have much more control over our presentation as well as cooperation in its creation seems to be much simpler than in comparison to cooperate in creating a presentation in PowerPoint. 
 The last advantage, one of the most important is that FsReveal is free.
 
-Here is a link to my sample presentation about ["introduction to fscheck"](https://mnie.github.io/FsCheckIntroduction/index.html#/)
+Here is a link to my sample presentation about ["introduction to fscheck"](https://mnie.github.io/FsCheckIntroduction)
+[Github repository with code](https://github.com/MNie/FsCheckIntroduction/tree/gh-pages)
 
 Thank you for reading :)
