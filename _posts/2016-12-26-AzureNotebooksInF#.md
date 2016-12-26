@@ -8,13 +8,13 @@ Hey!
 
 In today post I would like to present to you the "new" azure functionality which have been made available for us on December 1 this year. It's about creating notes in the Azure Notebooks in F#. What does it mean and what is it?
 
-Visually, it looks very much like a word / excel online, except that it gives us the opportunity to write/run/show the code, to others by sharing the link. It sounds very intriguing.
+Visually, it looks very much like a word/excel online, except that it gives us the opportunity to write/run/show the code, to others by sharing the link. It sounds very intriguing.
 
 Therefore, let's try this functionality! I decided to use [code](https://github.com/MNie/AzureTextAnalysis), which I created before. Thanks to that I will be able to easily compare the results and see if everything works nicely!
 
 So let's get started!
 
-First, we enter the web site: https://notebooks.azure.com/ and log into our azure account.
+First, we enter the [azure notebook web site](https://notebooks.azure.com/) and log into our azure account.
 We create a new library.
 
 ![create lib](https://mnie.github.com/img/24-12-2016AzureNotebooks/createLib.png)
@@ -39,7 +39,7 @@ We start by adding, a brief description of Markdown.
 ![add cell](https://mnie.github.com/img/24-12-2016AzureNotebooks/insertCellabove.png)
 ![markdown cell](https://mnie.github.com/img/24-12-2016AzureNotebooks/markdowncell1.png)
 
-Well, we have a brief description of what will be in our notebook, let thus loading the nuget packages that will be needed at a later time. We start by adding fields in which we can write in F#. We add cell the same as before, but this time we also set it's type:
+Well, we have a brief description of what will be in our notebook, let thus loading the nuget packages that will be needed later. We start by adding fields in which we can write in F#. We add cell the same as before, but this time we also set it's type:
  
 ![set cell type](https://mnie.github.com/img/24-12-2016AzureNotebooks/setCellType.png)
 
