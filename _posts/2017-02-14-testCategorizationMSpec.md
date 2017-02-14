@@ -43,7 +43,7 @@ So the code for these two classes looks as follows:
 <script src="https://gist.github.com/MNie/6fd044628a03125d18106830b961615e.js"></script>
 
 The code looks okay, resharper test runner tells us that tests are green, great! We commit our changes to our version control system, we look at our CI system (in this case temcity) and we see a single test.
-One test? But we have two tests, riszarper shows green badges, everything should be okay!
+One test? But we have two tests, Resharper shows green badges, everything should be okay!
 What is the problem? Mspec.Runner interprets these tests as the "same" due to the fact that they have the same "name", although it fires them, but they are grouped in a single test. Therefore, on TeamCity the test will have a note
 
 ![2 runs](https://mnie.github.com/img/14-02-2017TestCategorization/2runs.png)
