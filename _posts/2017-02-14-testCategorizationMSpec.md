@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Test tagging/categorization in Machine.Specifications
+title: Subject attribute in Machine.Specifications, how to categorize Your tests?
 ---
 
 Hi!
