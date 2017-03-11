@@ -11,8 +11,11 @@ Due to the use of many different libraries, I divide this post to smaller ones.
 
 In this post I want to focus on getting data from the database and make them available as json via endpoint for a user.
 We start by creating a NancyFx project f#, press ctrl + shift + p in visual studio code and select:
+
 ![new project](https://mnie.github.com/img/11-03-2017SentimentAppPart1/newproject.png)
+
 ![new nancy](https://mnie.github.com/img/11-03-2017SentimentAppPart1/newnancy.png)
+
 Right now we have empty NancyFx project (we have to remember about running Visual Studio Code as an administrator, since NancyFx have to register a port when running).
 So let's start by extracting data from the database. As I mentioned earlier, we use SqlTypeProvider. We start by adding references to packet.dependencies:
 <script src="https://gist.github.com/MNie/3b0e2e276bf1ebf30c6aeee132889db0.js"></script>
@@ -31,7 +34,9 @@ In the last step we turn mapped to record from the database to a predefined type
 
 That's it? So these few lines enough to drag data from a database. Since we want to share this data also in the endpoint, let's add an action to the nancy module nancy, let's call it "RawData"
 <script src="https://gist.github.com/MNie/f477e875a279f10c79eeeada5cd5c148.js"></script>
+
 ![raw data](https://mnie.github.com/img/11-03-2017SentimentAppPart1/RawData.png)
+
 Well it would be enough when it comes to this post in the next post, I want to take care of adding support for Azure api to examine sentiment messages.
  
 To sum up, in just ~10 lines of code written, service gets connection string from a configuration file, connects to the database and pulls data from it. It looks very neat, and above all straight. In my opinion much better than the analogous code written in C#.
