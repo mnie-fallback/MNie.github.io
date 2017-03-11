@@ -23,7 +23,9 @@ At this point we should have a result from Azure and the data from db. The only 
 <script src="https://gist.github.com/MNie/cbb826fe7441ec106810379be9f1b262.js"></script>
 To check if everything works nicely, I provide a new action in the nancy module:
 <script src="https://gist.github.com/MNie/28b3525323c16026cc9db0f3c3b1ddd4.js"></script>
+
 ![Azure](https://mnie.github.com/img/11-03-2017SentimentAppPart2/estimate.png)
+
 Everything looks great, the only thing which bother me are hardcoded strings in code, they are bad.
 It is difficult then to manage such code, which contains somewhere some magical values. Let us, therefore move these values to the configuration file (app.config) so we could read them later from it in code. To achieve that I add reference to FSharp.Configuration:
 <script src="https://gist.github.com/MNie/858a33f0bbc1c6f5808a9a72144d901a.js"></script>
@@ -33,13 +35,17 @@ Let's use this library to get our configuration. So we define a Settings type as
 So it could read configuration from an app.config file.
 <script src="https://gist.github.com/MNie/18a35872667daa0d9afc20b756c9fba4.js"></script>
 How we can get values from an app settings? Simple as that:
+
 ![Settings](https://mnie.github.com/img/11-03-2017SentimentAppPart2/Settings.png)
+
 As we can see all values from and app.config are available here and what is very cool it understand types in app.config. So AzureApiUrl has type Uri not a string. So function to get data from Azure looks right now like this:
 <script src="https://gist.github.com/MNie/43d1808ea4f6421b8e383c2293159507.js"></script>
 
 So it's all for this post. We saw ho to pair calling external API in our mikroservice and how to easily extract the data we need, from a configuration file by using FSharp.Configuration. What has to be done to finish the project is a cyclical sending of messages, what I would like to take care of in next post.
 
 Thanks for reading!
-[Source](https://github.com/MNie/SentimentNotifier)
-[Previous post](https://mnie.github.io/2017-03-11-sentimentAppPart1/)
-[Next post](https://mnie.github.io/2017-03-11-sentimentAppPart3/)
+
+
+* [Source](https://github.com/MNie/SentimentNotifier)
+* [Previous post](https://mnie.github.io/2017-03-11-sentimentAppPart1/)
+* [Next post](https://mnie.github.io/2017-03-11-sentimentAppPart3/)

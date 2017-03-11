@@ -31,13 +31,15 @@ In the last step we turn mapped to record from the database to a predefined type
 
 That's it? So these few lines enough to drag data from a database. Since we want to share this data also in the endpoint, let's add an action to the nancy module nancy, let's call it "RawData"
 <script src="https://gist.github.com/MNie/f477e875a279f10c79eeeada5cd5c148.js"></script>
+![raw data](https://mnie.github.com/img/11-03-2017SentimentAppPart1/RawData.png)
 Well it would be enough when it comes to this post in the next post, I want to take care of adding support for Azure api to examine sentiment messages.
  
 To sum up, in just ~10 lines of code written, service gets connection string from a configuration file, connects to the database and pulls data from it. It looks very neat, and above all straight. In my opinion much better than the analogous code written in C#.
 
 Thank you for reading!
 
-[Source](https://github.com/MNie/SentimentNotifier)
-[Next post](https://mnie.github.io/2017-03-11-sentimentAppPart2/)
+
+* [Source](https://github.com/MNie/SentimentNotifier)
+* [Next post](https://mnie.github.io/2017-03-11-sentimentAppPart2/)
 
 

@@ -36,5 +36,7 @@ Of course, we will add new endpoint (method in nancy module) which allows sendin
 Summarize all posts we can see how easily we could create a small microservice that contains a couple of functionalities. Comparing it to do similar/related service what I created in C# I could say that purity of code due to its greater brevity is way better. We also eliminate a lot of redundant lines of code (boilerplate code) and the complexity in code, which is often imposed by the selected technologies (dependency injection configuration, database configuration, etc.). In my opinion this example very nicely shows how we can "facilitate" Creating a microservices by using F#, in comparison to making them in C#.
 
 Thanks for reading!
-[Source](https://github.com/MNie/SentimentNotifier)
-[Previous post](https://mnie.github.io/2017-03-11-sentimentAppPart2/)
+
+
+* [Source](https://github.com/MNie/SentimentNotifier)
+* [Previous post](https://mnie.github.io/2017-03-11-sentimentAppPart2/)
