@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Decrease technological depth with help of CodeMetrics
+title: Decrease technical debt with help of CodeMetrics
 ---
 
 Hi,
@@ -16,7 +16,7 @@ These parameters are:
 * Class coupling - an index that corresponds to the relationship between classes;
 * Lines of code - executable code lines.
 
-The way to improve each of these metrics is similar, just to improve the code (simple right ;)?). In this post I will focus on cyclomatic complexity. Due to the desire to decrease technological debt in a project. At the same time without throwing suddenly at all the bad "places". I decided that the best way is to divide the code due to 3 parameters.
+The way to improve each of these metrics is similar, just to improve the code (simple right ;)?). In this post I will focus on cyclomatic complexity. Due to the desire to decrease code debt in a project. At the same time without throwing suddenly at all the bad "places". I decided that the best way is to divide the code due to 3 parameters.
 
 The first one is already mentioned before cyclomatic complexity, the second is information about the last modification date, the last number of changes made in a given class (in the project in which I work, each class is in a separate file).
 Having already an idea about on what data I want to operate, I had to go to get them. Code metrics can be get by exporting project statistics to a .csv file. We start by calculating code metrics. By right-clicking on the project and selecting from the context menu "Calculate Code Metrics"
