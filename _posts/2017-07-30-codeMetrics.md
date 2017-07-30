@@ -21,11 +21,11 @@ The way to improve each of these metrics is similar, just to improve the code (s
 The first one is already mentioned before cyclomatic complexity, the second is information about the last modification date, the last number of changes made in a given class (in the project in which I work, each class is in a separate file).
 Having already an idea about on what data I want to operate, I had to go to get them. Code metrics can be get by exporting project statistics to a .csv file. We start by calculating code metrics. By right-clicking on the project and selecting from the context menu "Calculate Code Metrics"
 
-![project](https://mnie.github.com/img/2017-07-30CodeMetrics/run.png)
+![project](https://mnie.github.com/img/2017-07-30CodeMetrics/run.jpg)
 
 After generating the statistics, we are going to export them to excel.
 
-![project](https://mnie.github.com/img/2017-07-30CodeMetrics/result.png)
+![project](https://mnie.github.com/img/2017-07-30CodeMetrics/result.jpg)
 
 By clicking the green excel icon we can filter the exported data so that they contain only information about the projects/methods/namespaces that we want to analyze.
 
