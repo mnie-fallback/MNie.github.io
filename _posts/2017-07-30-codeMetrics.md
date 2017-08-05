@@ -37,9 +37,9 @@ By going to the date of the last modification of the file, and the number of mod
 
 At this stage I had the data needed for the analysis. I need to determine which methods should be improved and on what values of metrics it should be determined. I decided that it was best to deal with functions that are often modified, modified recently, and have a high complexity as I said before. So I took the approach that I want to fetch methods that have the following attribute values:
 
-* Cyclomatic complexity> = 5
+* Cyclomatic complexity >= 5
 * Last modification time <= 4 weeks = 28 days
-* Moderation rate = 5
+* Moderation rate >= 5
 
 To achieve my goal I wrote a piece of F # program/script that uses the benefits of [CsvProvider](http://fsharp.github.io/FSharp.Data/library/CsvProvider.html). I started by declaring the types that represent the data I have:
 
