@@ -20,14 +20,14 @@ However, due to the use of Kibana in my project. I decided that it would be a go
 
 
 We start by downloading and starting [elasticsearch](https://www.elastic.co/downloads/elasticsearch) locally. 
-We launch it with the elasticSearch command in the bin folder in the previously downloaded source. ElasticSearch should be available by default at port 9200, which we can check by typing this address (localhost: 9200) in the search bar of a browser.
-In addition to ElasticSearch we will also need [Kibana](https://www.elastic.co/downloads/kibana).
+We launch it with the elasticsearch command in the bin folder in the previously downloaded source. ElasticSearch should be available by default at port 9200, which we can check by typing this address (localhost: 9200) in the search bar of a browser.
+In addition to Elasticsearch we will also need [Kibana](https://www.elastic.co/downloads/kibana).
 
 
 We run it like elastic, launching kibana.bat in the bin folder.
 
 
-At this point we have an entire environment ready for saving test times. So we can go to the data which we would want to save in ElasticSearch.
+At this point we have an entire environment ready for saving test times. So we can go to the data which we would want to save in Elasticsearch.
 
 This was accomplished by adding some functionality to the test project.
 We start by adding the [NEST](https://github.com/elastic/elasticsearch-net) library to the project.
@@ -37,8 +37,8 @@ Going back to the previous post, the structure of the test looks as follows.
 
 <script src="https://gist.github.com/MNie/ce25b2879ea2c421deed17f978baabd1.js"></script>
 
-You may notice that sending information to ElasticSearch with the execution time should occur just before the assertion phase.
-Due to the fact that sending this information will take place in many tests I decided to create a new module that will only answer for sending information to ElasticSearch.
+You may notice that sending information to Elasticsearch with the execution time should occur just before the assertion phase.
+Due to the fact that sending this information will take place in many tests I decided to create a new module that will only answer for sending information to Elasticsearch.
 This module looks like this:
 
 <script src="https://gist.github.com/MNie/1dbdc59c9aae5deb52e6ef642eeb52fc.js"></script>
@@ -62,13 +62,13 @@ Is responsible for setting the IndexName based on a string argument. The last:
 Performs an index function with the specified argument and maps its result to the IndexRequest.
 
 
-By going to the ElasticSearch connection setup, we can see the creation of an URI where we say where our ElasticSearch instance is located. 
-Then we create a connection setup and create an ElastcSearch client and set up an index where our data will be available. 
+By going to the Elasticsearch connection setup, we can see the creation of an URI where we say where our Elasticsearch instance is located. 
+Then we create a connection setup and create an Elasticsearch client and set up an index where our data will be available. 
 An important aspect here is that the index name must be composed of only lowercase letters.
 
 
-By going to the code that executes the action, you can see the senddata method, which creates a object that will represent the data held in ElasticSearch. 
-Then in the try/catch block we see the message sent to ElasticSearch.
+By going to the code that executes the action, you can see the senddata method, which creates a object that will represent the data held in Elasticsearch. 
+Then in the try/catch block we see the message sent to Elasticsearch.
 
 
 So finally structure of a test would look like this:
