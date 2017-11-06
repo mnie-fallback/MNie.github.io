@@ -25,7 +25,7 @@ Within the library itself, I decided to make available the methods that were res
 * Return all the headers in a file
 * Return values ​​in a specific columns
 
-Connecting the library to the project responsible for automated testing (implemented in C# and using a Selenium and NUnit library) looks like this.
+Connecting the library to the project responsible for automated testing (implemented in C# and using a Selenium and NUnit libraries) looks like this.
 
 <script src="https://gist.github.com/MNie/b7fdef49e20fcaa132241840aeeefafe.js"></script>
 
