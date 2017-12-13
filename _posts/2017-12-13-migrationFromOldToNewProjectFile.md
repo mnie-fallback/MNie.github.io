@@ -153,7 +153,6 @@ So, what are the advantages of switching to a new format?
 
 * The length of the file itself has dropped from about 200-1000 lines to 20-80 (in my solution),
 ![length](https://mnie.github.com/img/13-12-2017CsProjMigration/length.png)
-
 * We can easily specify the range of packages that should be downloaded for a given project,
 
 ```xml
@@ -163,18 +162,12 @@ So, what are the advantages of switching to a new format?
 ```
 
 * We do not have to unload the project in Visual Studio to edit the project file,
-
 ![unload](https://mnie.github.com/img/13-12-2017CsProjMigration/unload.png)
-
 * In the case of csproj files, we do not have to specify all files that are part of the project,
 * It gives us instant information about bad versions of packages between projects,
-
 ![downgrade](https://mnie.github.com/img/13-12-2017CsProjMigration/downgrade.png)
-
 * Quick information about cycles detection in project references,
-
 ![cycle](https://mnie.github.com/img/13-12-2017CsProjMigration/cycle.png)
-
 * "Easy" migration to the .net core, potentially the only thing we have to do is to add a new targetframework,
 
 ```xml
