@@ -171,7 +171,7 @@ So, what are the advantages of switching to a new format?
 * "Easy" migration to the .net core, potentially the only thing we have to do is to add a new targetframework,
 
 ```xml
-<TargetFramework>net462;netstandard2.0</TargetFramework>
+<TargetFramework>net462;netstandard2.0;and so on</TargetFramework>
 ```
 
 * Generating packages from the visual studio during the build process,
@@ -187,7 +187,7 @@ So, what are the advantages of switching to a new format?
 
 
 Problems that I encountered while migrating?
-* Generating the assemblyinfo based on the linked global files in the entire repository. In the case of my project, projects within the repository may have the same versions, by which they linked the same filesinfo and versioninfo files, in the case of a new csproj format the asseblyinfo file is automatically generated. To disable automatic generation, you have to add the following line at the beginning of the file csproj,
+* Generating the assemblyinfo based on the linked global files in the entire repository. In the case of my project, projects within the repository may have the same versions, by which they linked the same fileinfo and versioninfo files, in the case of a new csproj format the asseblyinfo file is automatically generated. To disable automatic generation, you have to add the following line at the beginning of the file csproj,
 
 ```xml
 <PropertyGroup>
@@ -197,12 +197,11 @@ Problems that I encountered while migrating?
 
 * Generating nuget packages using the nuget client from libraries based on the new project file format is [not yet possible](https://github.com/NuGet/Home/issues/4491),
 * Migration of msbuild tasks is also not available,
-- [msbuild issue](https://github.com/Microsoft/msbuild/issues/2746), 
-- [project-system issue](https://github.com/dotnet/project-system/issues/3011), 
-- [dotnet sdk issue](https://github.com/dotnet/sdk/issues/1780).
+    - [msbuild issue](https://github.com/Microsoft/msbuild/issues/2746), 
+    - [project-system issue](https://github.com/dotnet/project-system/issues/3011), 
+    - [dotnet sdk issue](https://github.com/dotnet/sdk/issues/1780).
 * Blindly following the fact that the creators of the packages know, understand, respect and use the "Semantic Versioning" can lead us up the garden path 
-- System.Data.SqLite.x64 ver 1.0.76 versus System.Data.SqLite.x64 ver 1.0.106,
-- ![sqlite](https://mnie.github.com/img/13-12-2017CsProjMigration/sqlite.png).
+![sqlite](https://mnie.github.com/img/13-12-2017CsProjMigration/sqlite.png).
 * Compiled sources no longer go to bin/* folders, instead they go to bin/{targerFramework}/* folders,
 * Problems encountered with the Visual studio version, due to the fact that a version of at least 15.2 is required to make everything work well,
 * Problem with resharper build, which can not cope the new csproj file format or references to nuget packages, which could be found only in project files,
