@@ -5,10 +5,12 @@ title: Migration from old format of cs/fsproj to the new one
 
 Hey,
 
-Recently, in my work I encountered problem of adding a nugget packege which targets .net standard to a project which targes .net framework. This caused problems when compiling the project. 
+Recently, in my work I encountered problem of adding a nuget packege which targets .net standard to a project which targets .net framework. This caused problems when compiling the project. 
 In search of a possible solution I found an [issue on github](https://github.com/dotnet/standard/issues/410). 
+
+
 Due to this, I decided to migrate old csproj/fsproj files in libraries and console apps (windows services). 
-However, in project which contains msbuild tasks inside of a project file, or web projects, I decided to switch from operating on packages.config and project file for nuget packages to only a packagereference in project file.
+However, in project which contains msbuild tasks inside of a project file, or web projects, I decided to switch from operating on packages.config and project file for nuget packages to a packagereference in project file.
 Each of such packagereference contains information about the version and name of a package.
 
 I started by moving information about nuget packages from packages.config files + cs/fsprojs to packagereferences in cs/fsproj. It based on adding the following entry to the csproj file:
@@ -23,7 +25,7 @@ Then I copied the content of the packages.config file and rewrote it to a single
 
 <script src="https://gist.github.com/MNie/35f43e66e68d300510ca3a6c308d06fd.js"></script>
 
-Since the command is ready, I could delete the packages.config file, at this moment I'm ready to execute the previously prepared command. After doing this, all nuget package references should be in one place at the bottom of project file.
+Since the command is ready, I could delete the packages.config file, at this moment I'm ready to execute the previously prepared command. After doing this, all nuget package references should be in one place at the bottom of project file and should looks like this:
 
 ```xml
 <ItemGroup>
@@ -33,7 +35,7 @@ Since the command is ready, I could delete the packages.config file, at this mom
 ```
 
 Moving to the conversion from the old format of fsproj file to the new one, I decided to prepare a minimal set of xml elements for the new format, which I pasted at the very beginning of the existing file.
- 
+
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
@@ -64,14 +66,14 @@ Moving to the conversion from the old format of fsproj file to the new one, I de
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Reference to some windows libs />
+    <Reference Include="Reference to some windows libs" />
   </ItemGroup>
 </Project>
 ```
- 
-Then I change the name of the project, assembly and default namespace. I am copying the itemgroup section containing information about the files included in the project. Then I add all the references to the nugget packages as the packagereference section.
+
+Then I changed the name of the project, assembly and default namespace. I copied the itemgroup section containing information about the files included in the project. Then I added all the references to the nuget packages as the packagereference section.
 I delete the rest of the file, thanks to which the file finally takes the following form.
- 
+
 ```xml
 <Project Sdk="FSharp.NET.Sdk;Microsoft.NET.Sdk">
 
@@ -85,7 +87,7 @@ I delete the rest of the file, thanks to which the file finally takes the follow
 
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
-    <Compile Include="ExtractsParser.fs" />
+    <Compile Include="SomeFile.fs" />
     <Content Include="App.config" />
   </ItemGroup>
 
@@ -104,24 +106,25 @@ I delete the rest of the file, thanks to which the file finally takes the follow
 
 </Project>
 ```
- 
+
 Now I am going to rewrite the csproj files, here I should point out one advantage of this migration in relation to f#, I do not have to specify files in the itemgroup section, but in this case I encountered some problems with files that remained in the repository, but were unplugged from the project, through which after changing to a new format appeared again in the project.
 
-Simply overwriting projects for a new format or using packagesreferences instead of packages.config took some time, but it was rather a simple task. I could use programs that do it automatically for me, for example like:
-
-- [CsprojToVs2017](https://github.com/hvanbakel/CsprojToVs2017)
+Simply overwriting projects for a new format or using packagesreferences instead of packages.config took some time, but it was rather a simple task. I could use programs that do it automatically for me, for example like [this](https://github.com/hvanbakel/CsprojToVs2017).
 
 However, I preferred to do it on myself to have full control over what is happening in the file.
 So, what are the advantages of switching to a new format?
 
-1. Information about the nugget packages is in one place, and not as it was before in packages.config what could cause problems when someone installed the package, but did not rebuild the project/did not save it and push their changes into the repository,
+* Information about the nuget packages is in one place, and not as it was before in packages.config what could cause problems when someone installed the package, but did not rebuild the project/did not save it and push their changes into the repository,
+
 ```xml
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="6.0.*" />
   </ItemGroup>
 ```
-2. We do not have to worry about whether the attached package is oriented to a good framework, because its version is deduced from the framework set in the project file,
-3. Transparency and readability of the file itself, thanks to which we can finally easily operate on it,
+
+* We do not have to worry about whether the attached package is oriented to a good framework, because its version is deduced from the framework set in the project file,
+* Transparency and readability of the file itself, thanks to which we can finally easily operate on it,
+
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
@@ -143,58 +146,75 @@ So, what are the advantages of switching to a new format?
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Reference to some windows libs />
+    <Reference Include="Reference to some windows libs" />
   </ItemGroup>
 </Project>
 ```
-4. The length of the file itself has dropped from about 200-1000 lines to 20-80 (in my solution),
+
+* The length of the file itself has dropped from about 200-1000 lines to 20-80 (in my solution),
 ![length](https://mnie.github.com/img/13-12-2017CsProjMigration/length.png)
-5. We can easily specify the range of packages that should be downloaded for a given project,
+
+* We can easily specify the range of packages that should be downloaded for a given project,
+
 ```xml
 <ItemGroup>
     <PackageReference Include="Common" Version="1.0.*" />
 </ItemGroup>
 ```
-6. We do not have to unload the project in Visual Studio to edit the project file,
+
+* We do not have to unload the project in Visual Studio to edit the project file,
+
 ![unload](https://mnie.github.com/img/13-12-2017CsProjMigration/unload.png)
-7. In the case of csproj files, we do not have to specify all files that are part of the project,
-8. It gives us instant information about bad versions of packages between projects,
+
+* In the case of csproj files, we do not have to specify all files that are part of the project,
+* It gives us instant information about bad versions of packages between projects,
+
 ![downgrade](https://mnie.github.com/img/13-12-2017CsProjMigration/downgrade.png)
-9. Quick information about cycles detection in project references,
+
+* Quick information about cycles detection in project references,
+
 ![cycle](https://mnie.github.com/img/13-12-2017CsProjMigration/cycle.png)
-10. "Easy" migration to the .net core, potentially the only thing we have to do is to add a new targetframework,
+
+* "Easy" migration to the .net core, potentially the only thing we have to do is to add a new targetframework,
+
 ```xml
 <TargetFramework>net462;netstandard2.0</TargetFramework>
 ```
-11. Generating packages from the visual studio during the build process,
+
+* Generating packages from the visual studio during the build process,
 ![generate](https://mnie.github.com/img/13-12-2017CsProjMigration/generate.png)
+
 ```xml
 <PropertyGroup>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 </PropertyGroup>
 ```
-12. Packages are downloaded per machine, not per solution as it was before.
+
+* Packages are downloaded per machine, not per solution as it was before.
+
 
 Problems that I encountered while migrating?
-1. Generating the assemblyinfo based on the linked global files in the entire repository. In the case of my project, projects within the repository may have the same versions, by which they linked the same filesinfo and versioninfo files, in the case of a new csproj format the asseblyinfo file is automatically generated. To disable automatic generation, you have to add the following line at the beginning of the file csproj,
+* Generating the assemblyinfo based on the linked global files in the entire repository. In the case of my project, projects within the repository may have the same versions, by which they linked the same filesinfo and versioninfo files, in the case of a new csproj format the asseblyinfo file is automatically generated. To disable automatic generation, you have to add the following line at the beginning of the file csproj,
+
 ```xml
 <PropertyGroup>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 </PropertyGroup>
 ```
-2. Generating nugget packages using the nuget client from libraries based on the new project file format is [not yet possible](https://github.com/NuGet/Home/issues/4491),
-3. Migration of msbuild tasks is also not available,
+
+* Generating nuget packages using the nuget client from libraries based on the new project file format is [not yet possible](https://github.com/NuGet/Home/issues/4491),
+* Migration of msbuild tasks is also not available,
 - [msbuild issue](https://github.com/Microsoft/msbuild/issues/2746), 
 - [project-system issue](https://github.com/dotnet/project-system/issues/3011), 
 - [dotnet sdk issue](https://github.com/dotnet/sdk/issues/1780).
-4. Blindly following the fact that the creators of the packages know, understand, respect and use the "Semantic Versioning" can lead us up the garden path 
+* Blindly following the fact that the creators of the packages know, understand, respect and use the "Semantic Versioning" can lead us up the garden path 
 - System.Data.SqLite.x64 ver 1.0.76 versus System.Data.SqLite.x64 ver 1.0.106,
 - ![sqlite](https://mnie.github.com/img/13-12-2017CsProjMigration/sqlite.png).
-5. Compiled sources no longer go to bin/* folders, instead they go to bin/{targerFramework}/* folders,
-6. Problems encountered with the Visual studio version, due to the fact that a version of at least 15.2 is required to make everything work well,
-7. Problem with resharper build, which can not cope the new csproj file format or references to nugget packages, which could be found only in project files,
-8. Migration of web projects targeting the .net framework to the new framework is not possible at the moment,
-9. Trouble with detection of Machine.Specifications specs by Resharper [issue](https://github.com/machine/machine.specifications.runner.resharper/issues/73).
+* Compiled sources no longer go to bin/* folders, instead they go to bin/{targerFramework}/* folders,
+* Problems encountered with the Visual studio version, due to the fact that a version of at least 15.2 is required to make everything work well,
+* Problem with resharper build, which can not cope the new csproj file format or references to nuget packages, which could be found only in project files,
+* Migration of web projects targeting the .net framework to the new framework is not possible at the moment,
+* Trouble with detection of Machine.Specifications specs by Resharper [issue](https://github.com/machine/machine.specifications.runner.resharper/issues/73).
 
 In summary, despite the large number of minuses, I think that the advantages prevail in the new project file format, thanks to which these projects are easier to manage and the files themselves are more concise and clear.
 
