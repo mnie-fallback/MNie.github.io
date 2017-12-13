@@ -206,7 +206,7 @@ Problems that I encountered while migrating?
 * Problems encountered with the Visual studio version, due to the fact that a version of at least 15.2 is required to make everything work well,
 * Problem with resharper build, which can not cope the new csproj file format or references to nuget packages, which could be found only in project files,
 * Migration of web projects targeting the .net framework to the new framework is not possible at the moment,
-* Trouble with detection of Machine.Specifications specs by Resharper [issue](https://github.com/machine/machine.specifications.runner.resharper/issues/73).
+* Problem with detection of Machine.Specifications specs by Resharper [issue](https://github.com/machine/machine.specifications.runner.resharper/issues/73).
 
 In summary, despite the large number of minuses, I think that the advantages prevail in the new project file format, thanks to which these projects are easier to manage and the files themselves are more concise and clear.
 
