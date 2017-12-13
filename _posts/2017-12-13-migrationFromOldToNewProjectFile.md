@@ -212,4 +212,4 @@ In summary, despite the large number of minuses, I think that the advantages pre
 
 Thank you for reading :)
 
-[Here is a presentation which I gave to my teammates](https://github.com/MNie/CsProjMigration/index)
+[Here is a presentation which I gave to my teammates](https://mnie.github.io/CsProjMigration/index#/)
