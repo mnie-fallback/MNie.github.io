@@ -216,7 +216,7 @@ Problems that I encountered while migrating?
     
     - you have to migrate it to something like that
     
-        ```xml
+    ```xml
     <UsingTask TaskName="TransformXml" AssemblyFile="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Web\Microsoft.Web.Publishing.Tasks.dll" />
     <Target Name="ApplyConfigurationConfigFile" AfterTargets="PrepareForBuild" Condition="Exists('App.$(Configuration).config')">
       <ItemGroup>
