@@ -196,17 +196,46 @@ Problems that I encountered while migrating?
 ```
 
 * Generating nuget packages using the nuget client from libraries based on the new project file format is [not yet possible](https://github.com/NuGet/Home/issues/4491),
-* Migration of msbuild tasks is also not available,
-    - [msbuild issue](https://github.com/Microsoft/msbuild/issues/2746), 
-    - [project-system issue](https://github.com/dotnet/project-system/issues/3011), 
-    - [dotnet sdk issue](https://github.com/dotnet/sdk/issues/1780).
+* Migration of msbuild tasks is available, but not so [well documented](https://github.com/Microsoft/msbuild/issues/2746).
+    - So if you have an xml like that:
+    
+    ```xml
+    <UsingTask TaskName="TransformXml" AssemblyFile="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Web\Microsoft.Web.Publishing.Tasks.dll" />
+    <Target Name="AfterCompile" Condition="Exists('App.$(Configuration).config')">
+      <!--Generate transformed app config in the intermediate directory-->
+      <TransformXml Source="App.config" Destination="$(IntermediateOutputPath)$(TargetFileName).config" Transform="App.$(Configuration).config" />
+      <!--Force build process to use the transformed configuration file from now on.-->
+      <ItemGroup>
+        <AppConfigWithTargetPath Remove="App.config" />
+        <AppConfigWithTargetPath Include="$(IntermediateOutputPath)$(TargetFileName).config">
+          <TargetPath>$(TargetFileName).config</TargetPath>
+        </AppConfigWithTargetPath>
+      </ItemGroup>
+    </Target>
+    ```
+    
+    - you have to migrate it to something like that
+    
+        ```xml
+    <UsingTask TaskName="TransformXml" AssemblyFile="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Web\Microsoft.Web.Publishing.Tasks.dll" />
+    <Target Name="ApplyConfigurationConfigFile" AfterTargets="PrepareForBuild" Condition="Exists('App.$(Configuration).config')">
+      <ItemGroup>
+        <AppConfigWithTargetPath Remove="App.config" />
+        <AppConfigWithTargetPath Include="$(IntermediateOutputPath)$(TargetFileName).config">
+          <TargetPath>$(TargetFileName).config</TargetPath>
+        </AppConfigWithTargetPath>
+      </ItemGroup>
+      <TransformXml Source="App.config" Destination="$(IntermediateOutputPath)$(TargetFileName).config" Transform="App.$(Configuration).config" />
+    </Target>
+    ```
+    
 * Blindly following the fact that the creators of the packages know, understand, respect and use the "Semantic Versioning" can lead us up the garden path 
 ![sqlite](https://mnie.github.com/img/13-12-2017CsProjMigration/sqlite.png).
 * Compiled sources no longer go to bin/* folders, instead they go to bin/{targerFramework}/* folders,
 * Problems encountered with the Visual studio version, due to the fact that a version of at least 15.2 is required to make everything work well,
 * Problem with resharper build, which can not cope the new csproj file format or references to nuget packages, which could be found only in project files,
 * Migration of web projects targeting the .net framework to the new framework is not possible at the moment,
-* Problem with detection of Machine.Specifications specs by Resharper [issue](https://github.com/machine/machine.specifications.runner.resharper/issues/73).
+* Problem with detection of Machine.Specifications/XUnit specs by Resharper [issue](https://github.com/machine/machine.specifications.runner.resharper/issues/73), and [issue in resharper](https://youtrack.jetbrains.com/issue/RSRP-467721).
 
 In summary, despite the large number of minuses, I think that the advantages prevail in the new project file format, thanks to which these projects are easier to manage and the files themselves are more concise and clear.
 
