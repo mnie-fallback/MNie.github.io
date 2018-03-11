@@ -6,7 +6,9 @@ title: Visual Studio 15.6.0 vs .net like projects
 Hey,
 
 at the beginning of this week, new Visual Studio 15.6.0 appeared. I decided to update my version to the newest one, because what possibly could go wrong?
-Has Microsoft ever released a version of Visual Studio that did not `work` ;)?<br\>
+Has Microsoft ever released a version of Visual Studio that did not `work` ;)?
+
+
 Well, while the last dozen of updates did not cause any problems, this update caused a couple of them because Visual Studio starts to hang and shut down after a couple of seconds.
 The solution, which was opened, (In fact, an attempt was made to open it) is a solution consisting of about 20 projects, 18 C# and 2 F#.
 A quick fix of the sln file that based on excluding F# projects from sln allowed to determine what/who is potentially a problem for the latest version of Visual Studio.
@@ -51,7 +53,9 @@ After this amendment I made another attempt to launch the entire solution in Vis
 
 `project file is incomplete. expected imports are missing`
 
-Dust, delete obj/bin folders for F# projects and C# projects having references for F# projects helped to load the entire solution. Success!<br\>
+Dust, delete obj/bin folders for F# projects and C# projects having references for F# projects helped to load the entire solution. Success!
+
+
 The next step was to build the entire solution. Potentially everything should works fine. Of course, as it happens in such situations, everything did not work.
 One of the projects stated that he can not find the dll file of one of the referenced projects. I looked quickly at whether the reference is really added to that project. It turned out that this project has an old csproj file format.
 Because of that Visual Studio, shows this information in Solution Explorer:
@@ -62,7 +66,9 @@ and those in the properties of the project:
 
 ![properties2](https://mnie.github.com/img/11-03-2018DrunkVs/properties2.png)
 
-For projects with a new csproj file format, all data shown was coherent. So I built the first referenced project, then I built the one that did not want to build a moment ago. It turned out that everything was built correctly.<br\>
+For projects with a new csproj file format, all data shown was coherent. So I built the first referenced project, then I built the one that did not want to build a moment ago. It turned out that everything was built correctly.
+
+
 So it seems that Visual Studio could not keep the order of building projects depending on the references. So I decided that if all projects are in a new format (because it seems that solution which contains a new and old type of cs/fsprojs doesn't works well), this one should not be different so I changed the old format to a new one, which resulted in the fact that all data shown in Visual Studio in the properties of the solution looks right now like that:
 
 ![properties4](https://mnie.github.com/img/11-03-2018DrunkVs/properties4.png)
@@ -71,7 +77,9 @@ and in Solution Explorer:
 
 ![properties3](https://mnie.github.com/img/11-03-2018DrunkVs/properties3.png)
 
-They are coherent. Therefore, there should be no error in compiling the entire solution related to the wrong order of building projects.<br\>
+They are coherent. Therefore, there should be no error in compiling the entire solution related to the wrong order of building projects.
+
+
 In summary, it is often said that we shouldn't start/move project to the technologies/libraries/languages which are not mature enough or stable enough. 
 It could be seen that although the subsequent versions of Visual Studio are described as stable, it is better to always have several versions back to the current version.
 
