@@ -5,7 +5,7 @@ title: About me
 
 Hi,
 
-my name is Michał Niegrzybowski I'm a .Net developer and also an IT student from Gdańsk University of Technology (GUT). 
+my name is Michał Niegrzybowski I'm a .Net developer, I finished Informatics on Gdańsk University of Technology (GUT).
 
 ### More information
 
