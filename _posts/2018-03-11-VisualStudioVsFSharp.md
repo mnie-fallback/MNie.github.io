@@ -82,5 +82,6 @@ They are coherent. Therefore, there should be no error in compiling the entire s
 
 In summary, it is often said that we shouldn't start/move project to the technologies/libraries/languages which are not mature enough or stable enough. 
 It could be seen that although the subsequent versions of Visual Studio are described as stable, it is better to always have several versions back to the current version.
+But this particular situation helps us to spot a weak points of our cs/fsproj files which in fact are incorrect (double sdk, mixing old and new project formats).
 
 Thank you for reading :)
