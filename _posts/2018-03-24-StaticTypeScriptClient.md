@@ -125,13 +125,13 @@ So if we want to avoid such errors we have to check what type is expected to be 
 
 ```csharp
 protected override ActionResult CreateActionResult(ControllerContext c, ActionDescriptor a, object value)
-        {
-            var @type = (a as ReflectedActionDescriptor)?.MethodInfo?.ReturnType;
+{
+    var @type = (a as ReflectedActionDescriptor)?.MethodInfo?.ReturnType;
 
-            return typeof(ActionResult).IsAssignableFrom(@type)
-                ? base.CreateActionResult(c, a, value)
-                : new JsonResult(){data = value …};
-        }
+    return typeof(ActionResult).IsAssignableFrom(@type)
+        ? base.CreateActionResult(c, a, value)
+        : new JsonResult(){data = value …};
+}
 ```
 
 We could see here that thanks to code like that, we handle all cases and the code is still clear and readable, cause in comparison to the first result, the corrected solution contains only a check what return type is expected.
