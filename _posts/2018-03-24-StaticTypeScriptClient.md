@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Static typescript client to controller actions, is it possible?
+title: Static typescript client for controller actions, is it possible?
 ---
 
 Hey,
