@@ -258,14 +258,11 @@ Another thing that should be fixed is getting the type of an action, when it is 
 this.http.system.net.http.verbs.get system.net.http.verbs.post
 ```
 
-It was not exactly what I expected, therefore I wrote a very simple code which, when method accepts verbs instead of concrete HttpType it should return post (since in case of my project if method contains a couple of verbs it is always a get and post and from a typescript code we use only a post one)
+It was not exactly what I expected, therefore I wrote a very simple code which, when method accepts verbs instead of concrete HttpType it should return the last specified verb (since in case of my project if method contains a couple of verbs it is always a get and then post and from a typescript code we use only a post one)
  
 ```csharp
 string MethodType(Method m) {
-    var containsVerbs = m.HttpMethod().Contains("verbs");
-    return containsVerbs
-        ? "post"
-        : m.HttpMethod();
+    return m.HttpMethod().Split(' ').Select(x => x.Split('.').Last()).Last();
 }
 ```
 
