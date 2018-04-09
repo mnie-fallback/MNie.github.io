@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Running tests via Resharper after migration to new project file format
+title: Running tests via Resharper after migration to a new project file format
 ---
 
 Hey,
