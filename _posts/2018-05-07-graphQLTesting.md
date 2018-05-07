@@ -176,7 +176,8 @@ private static Gen<QueryTest> GenWithArguments(
 {
     var argNames = query.Arguments.Select(x => x.Name);
     var name = query.Name;
-    var fields = graphType.Fields.Select(x => GetFieldRepresentation(x, container, 0));
+    var fields = graphType.Fields
+        .Select(x => GetFieldRepresentation(x, container, 0));
 
     var fieldsSublist = Gen.SubListOf(fields);
     var arguments = fetchArguments(argNames);
@@ -291,7 +292,7 @@ public Property Query_returns200(QueryTest query)
         .ToProperty()
         .Label($"{response.StatusCode} = 200");
 }
- 
+
 [FsCheck.NUnit.Property(Arbitrary = new[] { typeof(CarArb) }, MaxTest = 100)]
 public Property Query_HaveNoErrorsSection(QueryTest query)
 {
