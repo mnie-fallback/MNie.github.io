@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Testing GraphQL queries via FsCheck library
+title: Testing GraphQL queries with FsCheck library
 ---
 
 Some time ago I have a pleasure to join a project which uses a GraphQL library. GraphQL essentially allows users to define queries from a front-end to gather concrete data. So as it looks it is completely different than a standard REST endpoint. GraphQL differs queries which only gather data from those which also mutates them. In this article, I want to concentrate on queries which only gather some that and method to test them.
