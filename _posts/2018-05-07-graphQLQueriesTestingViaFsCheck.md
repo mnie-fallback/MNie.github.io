@@ -176,30 +176,7 @@ It based on gathering field name if the type of this field is a simple GraphlQL 
 
 Going back to the previous method. Based on gathered fields, which are in a form of string list, we create a generator rest on them. Then, we get all arguments for a query based on a function which is passed as an argument. Next, at the end of this function we create our final generator which depends on fields and arguments, we also keep in mind that our query has to contain some fields, so we have to filter out a situation where fields list is empty. Finally, we build test object thanks to the BuildQuery function, which looks like this:
 
-```csharp
-private static QueryTest BuildQuery(string type, TArguments args, IEnumerable<string> fields)
-{
-    var arguments = args == null ? "" : GetArguments(args);
-    var query = $"{{{type}{arguments}{{{string.Join(' ', fields)}}}}}";
-    return new QueryTest(query);
-}
- 
-private static string GetArguments(TArguments args)
-{
-    var values = args.GetType()
-        .GetFields()
-        .Select(x => new { name = x.Name, value = x.GetValue(args) })
-        .Where(x => x.value != null)
-        .Select(x => $"{x.name}:{FormatArgument(x.value)}");
-    return $"({string.Join(',', values)})";
-}
-
-private static string FormatArgument(object value) =>
-    value is string
-        ? $"\"{value}\""
-        : $"{value}"
-
-```
+<script src="https://gist.github.com/MNie/d8e8e1e5e3825766050c6f956eb35d53.js"></script>
 ```csharp
 
 internal class QueryTest
