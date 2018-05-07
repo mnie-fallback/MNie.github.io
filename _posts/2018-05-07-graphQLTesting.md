@@ -215,14 +215,12 @@ Finally, we build test object thanks to the `BuildQuery` function, which looks l
 
 <script src="https://gist.github.com/MNie/d8e8e1e5e3825766050c6f956eb35d53.js"></script>
 ```csharp
-
 internal class QueryTest
 {
     public readonly string Query;
     public QueryTest(string query) =>
         Query = query;
 }
-
 ```
 As it seems it isn't a rocket science, only a combination of a graphQL query. 
 
@@ -272,7 +270,6 @@ internal class CarArb : QueryArb<CarQuery, CarArguments>
                 select new CarArguments(single);
     }
 }
-
 ```
 
 As we could see generator for a concrete query is very simple and readable, tests look like this:
