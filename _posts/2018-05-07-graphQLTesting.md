@@ -141,11 +141,11 @@ public static Arbitrary<QueryTest> BuildArb(
         .Resolve(queryType);
 
     var hasArguments = query.Arguments != null && query.Arguments.Any();
-    var data = hasArguments
+    var gen = hasArguments
         ? GenWithArguments(fetchArgsFunc, query, graphType, container)
         : GenWithoutArguments(query, graphType, container);
 
-    return data.ToArbitrary();
+    return gen.ToArbitrary();
 }
 ```
 
@@ -294,7 +294,7 @@ public Property Query_returns200(QueryTest query)
 public Property Query_HaveNoErrorsSection(QueryTest query)
 {
     var response = _client.GetAsync($"?query={query}").GetAwaiter().GetResult(); 
-    //cause await seems to be not working fine with FsCheck 2.9 
+    //cause await seems to be not working fine with FsCheck 2.10 
     //(when method is marked as an async)
     var content = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
 
