@@ -5,10 +5,11 @@ title: Testing GraphQL queries with FsCheck library - Shrinking input
 
 Hi,
 
-Today I want to continue a topic about testing graphQL queries thanks to the FsCheck library. How we could achieve that I describe briefly [here](https://www.mnie.me/2018-05-07-graphQLTesting/).
+today I want to continue a topic about testing graphQL queries thanks to the FsCheck library. How we could achieve that I describe briefly [here](https://www.mnie.me/2018-05-07-graphQLTesting/).
+
 So I want to focus on a situation when our tests spot some problems. By default, we should get in a unit test output window information about the query which caused a failed test thanks to that we could copy-paste this query and check manually what is wrong.
 
-But what would be when our query or graphTypes are very complex and not every field is incorrect? In a situation like this we would like to get the minimum query which produced a failure, so we could leverage time needed to spend on a manual check. We could achieve that by writing a custom shrinker. If some test fails shrinker tries to change somehow an input for next iterations of a test so we could get the minimum failure query in our example.
+But what would be when our query or graphTypes are very complex and not every field is incorrect? In a situation like this we would like to get the minimum query which produced a failure, so we could leverage time needed to spend on a manual check. We could achieve that by writing a custom shrinker. If some test fails shrinker tries to change somehow an input for next iterations of a test so we could get the minimum failure query in our case.
 
 So to see this in some example, previously we write tests for a Query and GraphType which are defined as follows:
 
@@ -123,9 +124,7 @@ car(name: "name of a car")
 What we want is to get a minimum query which caused tests to be red, which should look like this:
 
 ```javascript
-{
 car(name: "name of a car") { model }
-}
 ```
 
 To implement shrinker in our case we have to modify our test input type. Previously it looks like this:
@@ -178,7 +177,9 @@ public static IEnumerable<QueryTest> Shrink(QueryTest qt)
 }
 ```
  
-Implementation of a shrinker is pretty straightforward. The first thing that comes to mind is a return type which is an IEnumerable of QueryTest instead of simply QueryTest.  This is because we create k combinations of an input against which our test would be run in n shrink phases. If we go deeply into implementation we could see that we want to generate some "shrunk examples" till the query would contain a single field (graphQL expect at least one field in a query). Then we go through all fields and we remove one of them. I think this example would explain it. As we remember the field `model` in a `car` was resolved incorrectly. FsCheck produces following test case in the first phase of a test (shrink = 0). The test was run against the following query.
+Implementation of a shrinker is pretty straightforward. The first thing that comes to mind is a return type which is an IEnumerable of QueryTest instead of simply QueryTest.  This is because we create k combinations of an input against which our test would be run in n shrink phases. If we go deeply into implementation we could see that we want to generate some "shrunk examples" till the query would contain a single field (graphQL expect at least one field in a query). Then we go through all fields and we remove one of them. I think this example would explain it. 
+
+As we remember the field `model` in a `car` was resolved incorrectly. FsCheck produces following test case in the first phase of a test (shrink = 0). The test was run against the following query.
 
 ```javascript
 car(name: "name of a car")
