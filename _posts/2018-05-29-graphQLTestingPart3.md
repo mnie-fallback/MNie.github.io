@@ -218,42 +218,7 @@ car(name: "name of a car")
 
 As we could see a query for gathering fields specified as a union type are different than a query for a simple field. Instead of `field`, we have to write `... on field`. Because of that while scanning all available fields we have to extract those fields which are defined as a UnionGraphType. Important is that UnionGraphType doesn't inherit from IComplexGraphType, this is why test without any change would fail when trying to produce a query. So right now the first thing when scanning the available fields is to check if the field is a UnionGraphType or not. If it is we want to collect all available GraphTypes for this Union and for every of this type generate a part of a query but also keep the actual behavior for fields not defined as unions. Here is a piece of code which is responsible for scanning all the fields:
 
-```csharp
-private static string ToString(IContainer container, IFieldType field, Type toResolve, int deep) =>
-    toResolve.IsAssignableTo<IComplexGraphType>()
-        ? ToStringAsField(container, field, toResolve, deep, FieldFormat)
-        : ToStringAsUnion(container, field, toResolve, deep);
-
-private static string FormatWithPropertiesForUnions(IContainer container, IFieldType field, Type toResolve, int deep)
-{
-    var unionTypes = (UnionGraphType) container.Resolve(toResolve);
-    var unions = unionTypes.Types
-        .Select(type => FormatAsField(container, field, type, deep, UnionFormat));
-    return string.Join("", unions);
-}
-
-private static string FormatAsField(
-    IContainer container, 
-    IFieldType field, 
-    Type toResolve, 
-    int deep, 
-    Func<string, string, string, string> format
-)
-{
-    var type = (IComplexGraphType) container.Resolve(toResolve);
-    var fields = string.Join(' ', type.Fields.Select(y => ToString(y, container, deep 1)));
-    return string.IsNullOrWhiteSpace(fields)
-        ? string.Empty
-        : format(field.Name, type.Name, fields);
-}
- 
-private static string FieldFormat(string fieldName, string _, string fields) =>
-    $"{fieldName}{{{fields}}}";
-
-private static string UnionFormat(string fieldName, string unionName, string fields) =>
-    $"{fieldName}{{ ... on {unionName}{{{fields}}}}}";
-
-```
+<script src="https://gist.github.com/MNie/6bd8fc7f851ad865544dcaa8b8152b73.js"></script>
 
 Thanks to the above fixes we were able to test also queries which contain a UnionGraphTypes as fields. The only dilemma here is that we ask in a query for all possible types specified in a union. The solution to that is to run some warmup or startup query which would infer based on a `__typename` field, what type is available. But in our situation, this problem (to ask for all possible types) is rather small, and a solution to this would be overwhelming, so we decide to keep it as simple as possible.
 
