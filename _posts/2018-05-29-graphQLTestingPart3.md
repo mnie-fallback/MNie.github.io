@@ -100,7 +100,7 @@ public class CarQuery : RootQueryField
 }
 ```
 
-In our case the use of an UnionGraphType we could be named as an additional option available in a car. To visualize it better, we could assume that car could have some media system which could be a CD radio, Android radio, Cassette radio. Above three classes we implement as following GraphTypes.
+In our case the use of an UnionGraphType could be named as an additional option available in a car. To visualize it better, we could assume that car could have some media system which could be a CD radio, Android radio, Cassette radio. Above three classes we implement as following GraphTypes.
 
 ```csharp
 public class CDRadio
@@ -122,7 +122,7 @@ public class CassetteRadio
 
 public class CDRadioGraphType : ObjectGraphType<CDRadio>
 {
-    public CDRadioGraphType(IEngineProvider engineProvider)
+    public CDRadioGraphType()
     {
         this.Name = "CD";
 
@@ -139,7 +139,7 @@ public class CDRadioGraphType : ObjectGraphType<CDRadio>
 
 public class AndroidRadioGraphType : ObjectGraphType<AndroidRadio>
 {
-    public AndroidRadioGraphType(IEngineProvider engineProvider)
+    public AndroidRadioGraphType()
     {
         this.Name = "Android";
 
@@ -157,7 +157,7 @@ public class AndroidRadioGraphType : ObjectGraphType<AndroidRadio>
 
 public class CassetteRadioGraphType : ObjectGraphType<CassetteRadio>
 {
-    public CassetteRadioGraphType(IEngineProvider engineProvider)
+    public CassetteRadioGraphType()
     {
         this.Name = "Cassette";
 
@@ -216,7 +216,7 @@ car(name: "name of a car")
 }
 ```
 
-As we could see a query for gathering fields specified as a union type are different than a query for a simple field. Instead of `field`, we have to write `... on field`. Because of that while scanning all available fields we have to extract those fields which are defined as a UnionGraphType. Important is that UnionGraphType doesn't inherit from IComplexGraphType, this is why test without any change would fail when trying to produce a query. So right now the first thing when scanning the available fields is to check if the field is a UnionGraphType or not. If it is we want to collect all available GraphTypes for this Union and for every of this type generate a part of a query but also keep the actual behavior for fields not defined as unions. Here is a piece of code which is responsible for scanning all the fields:
+As we could see a query for gathering fields specified as a union type are different than a query for a simple field. Instead of `field`, we have to write `... on field`. Because of that while scanning all available fields we have to extract those fields which are defined as a UnionGraphType. Important is that UnionGraphType doesn't inherit from IComplexGraphType, this is why test without any change would fail when trying to produce a query. So right now the first thing when scanning the available fields is to check if the field is a UnionGraphType or not. If it is, we want to collect all available GraphTypes for this Union and for every of this type generate a part of a query but also keep the actual behavior for fields not defined as unions. Here is a piece of code which is responsible for serializing all the fields while they are scanning:
 
 <script src="https://gist.github.com/MNie/6bd8fc7f851ad865544dcaa8b8152b73.js"></script>
 
