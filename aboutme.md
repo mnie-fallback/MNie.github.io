@@ -14,8 +14,9 @@ I'm an enthusiast of personal development and new technologies. I'm also a big f
 
 ### Presentations
 
-* [Introduction to FsCheck](www.mnie.me/FsCheckIntroduction/index)
-* [CodeAnalysis](www.mnie.me)
-* [New project file format](http://www.mnie.me/CsProjMigration/index#/)
-* [Static Typescript client](http://www.mnie.me/StaticTypescriptClient/index#/)
-* [Comparison of recommendation systems (in polish)](http://www.mnie.me/MasterThesis/#/)
+* [Introduction to FsCheck](https://www.mnie.me/FsCheckIntroduction/index)
+* [CodeAnalysis](https://www.mnie.me)
+* [New project file format](https://www.mnie.me/CsProjMigration/index#/)
+* [Static Typescript client](https://www.mnie.me/StaticTypescriptClient/index#/)
+* [Comparison of recommendation systems (in polish)](https://www.mnie.me/MasterThesis/#/)
+* [GraphQL Testing via FsCheck](https://www.mnie.me/GraphQLFsCheckPresentation/#/)
