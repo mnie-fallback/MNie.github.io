@@ -66,4 +66,7 @@ Yup this is it, I got you! It seems that rider decides if he has to scan some sp
 
 So when you are using rider please be cautious that it could be case sensitive sometimes :)
 
+#edit
+It is already [fixed](https://youtrack.jetbrains.com/oauth?state=%2Fissue%2FRIDER-16914) and should work correctly in Rider 2018.2.
+
 Thanks for reading!
