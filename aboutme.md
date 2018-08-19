@@ -19,7 +19,4 @@ I'm an enthusiast of personal development and new technologies. I'm also a big f
 * [New project file format](https://www.mnie.me/CsProjMigration/index#/)
 * [Static Typescript client](https://www.mnie.me/StaticTypescriptClient/index#/)
 * [Comparison of recommendation systems (in polish)](https://www.mnie.me/MasterThesis/#/)
-<<<<<<< HEAD
 * [GraphQL Testing via FsCheck](https://www.mnie.me/GraphQLFsCheckPresentation/#/)
-=======
->>>>>>> bbc59cd2309a0a5dadf9e10d8f1e05ffee838d46
