@@ -6,7 +6,7 @@ title: About me
 Hi,
 
 my name is Michał Niegrzybowski I'm a .Net developer, I finished Informatics at Gdańsk University of Technology (GUT).
-I'm currently working for [JetShop AB](http://jetshop.se) as a software engineer.
+I'm currently working for [Ciklum](https://www.ciklum.com/) as a senior software engineer.
 
 ### More information
 
