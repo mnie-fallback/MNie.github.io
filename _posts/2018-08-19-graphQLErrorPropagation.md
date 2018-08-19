@@ -25,7 +25,10 @@ Keeping in mind that every Query and Mutation inherit from a FieldType I created
 ```csharp
 internal abstract class RootField : FieldType
 {
-    protected async Task<TType> Resolve<TType>(ResolveFieldContext context, Func<ResolveFieldContext, Task<Result<TType>>> resolve)
+    protected async Task<TType> Resolve<TType>(
+        ResolveFieldContext context, 
+        Func<ResolveFieldContext, Task<Result<TType>>> resolve
+    )
     {
         var result = await resolve(context);
         if (result.IsSuccess)
@@ -58,8 +61,13 @@ internal class SomeQuery: RootField
         Type = typeof(ListGraphType<SomeGraphType>);
     }
 
-    private async Task<IReadOnlyCollection<Some>> Resolve(ResolveFieldContext context) =>
-      await base.Resolve(context, async ctx => await this.someResolver.ResolveAsync());
+    private async Task<IReadOnlyCollection<Some>> Resolve(
+        ResolveFieldContext context
+    ) =>
+        await base.Resolve(
+          context, 
+          async ctx => await this.someResolver.ResolveAsync()
+        );
     }
 ```
 
@@ -111,8 +119,12 @@ public class ErrorCodeGraphType: ObjectGraphType<ErrorCodeGraphSource>
     public ErrorCodeGraphType()
     {
         Name = "ErrorCode";
-        Field<NonNullGraphType<ErrorCodeEnumGraphType>>().Name("value").Resolve(ctx => ctx.Source.Value);
-        Field<NonNullGraphType<StringGraphType>>("translation", resolve: ctx => ctx.Source.Translation);
+        Field<NonNullGraphType<ErrorCodeEnumGraphType>>()
+            .Name("value")
+            .Resolve(ctx => ctx.Source.Value);
+        Field<NonNullGraphType<StringGraphType>>()
+            .Name("translation")
+            .Resolve(ctx => ctx.Source.Translation);
     }
 }
 ```
@@ -127,13 +139,21 @@ internal class ErrorCodesQuery: RootQueryField
     {
         _errorCodeResolver = errorCodeResolver;
         Name = "errorCodes";
-        Resolver = new FuncFieldResolver<Task<IReadOnlyCollection<ErrorCodeGraphSource>>>(Resolve);
+        Resolver = 
+            new FuncFieldResolver<Task<IReadOnlyCollection<ErrorCodeGraphSource>>>(
+                Resolve
+            );
         Type = typeof(ListGraphType<ErrorCodeGraphType>);
     }
 
-    private async Task<IReadOnlyCollection<ErrorCodeGraphSource>> Resolve(ResolveFieldContext context) =>
-        await base.Resolve(context, async ctx => await _errorCodeResolver.ResolveAsync());
-    }
+    private async Task<IReadOnlyCollection<ErrorCodeGraphSource>> Resolve(
+        ResolveFieldContext context
+    ) =>
+        await base.Resolve(
+            context, 
+            async ctx => await _errorCodeResolver.ResolveAsync()
+        );
+}
 ```
 
 `Resolver`:
@@ -157,7 +177,9 @@ internal class ErrorCodeResolver : IErrorCodeResolver
         return Map(result, codesNames.Length);
     }
 
-    private static Result<IReadonlyCollection<ErrorCodeGraphSource>> Map(Result<IReadOnlyCollection<ErrorCodeTranslation>> translations) => ...
+    private static Result<IReadonlyCollection<ErrorCodeGraphSource>> Map(
+        Result<IReadOnlyCollection<ErrorCodeTranslation>> translations
+    ) => ...
 }
 ```
 
@@ -166,7 +188,9 @@ internal class ErrorCodeResolver : IErrorCodeResolver
 ```csharp
 public interface IErrorCodeQuery
 {
-    Task<Result<IReadOnlyCollection<ErrorCodeTranslation>> GetAsync(IEnumerable<string> codes);
+    Task<Result<IReadOnlyCollection<ErrorCodeTranslation>> GetAsync(
+        IEnumerable<string> codes
+    );
 }
 
 internal class ErrorCodeQuery : IErrorCodeQuery
@@ -176,12 +200,18 @@ internal class ErrorCodeQuery : IErrorCodeQuery
     public ErrorCodeQuery(ILocalizationContext context) =>
         _context = context;
 
-    public async Task<Result<IReadOnlyCollection<ErrorCodeTranslation>>> GetAsync(IEnumerable<string> codes) => 
+    public async Task<Result<IReadOnlyCollection<ErrorCodeTranslation>>> GetAsync(
+        IEnumerable<string> codes
+    ) => 
         await GetFromDb(errorCodesNames)
             .ThenAsync(Map);
 
-    private async Task<Result<IReadOnlyCollection<ErrorCodeDb>>> GetFromDb(IEnumerable<string> codes) => ...
-    private async Result<IReadOnlyCollection<ErrorCodeTranslation>> GetFromDb(Result<IReadOnlyCollection<ErrorCodeDb>> dbResult) => ...
+    private async Task<Result<IReadOnlyCollection<ErrorCodeDb>>> GetFromDb(
+        IEnumerable<string> codes
+    ) => ...
+    private async Result<IReadOnlyCollection<ErrorCodeTranslation>> GetFromDb(
+        Result<IReadOnlyCollection<ErrorCodeDb>> dbResult
+    ) => ...
 }
 
 ```
