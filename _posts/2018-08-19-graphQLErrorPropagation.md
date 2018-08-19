@@ -57,7 +57,9 @@ internal class SomeQuery: RootField
     {
         _someResolver = someResolver;
         Name = "some";
-        Resolver = new FuncFieldResolver<Task<IReadOnlyCollection<Some>>>( Resolve);
+        Resolver = new FuncFieldResolver<Task<IReadOnlyCollection<Some>>>(
+            Resolve
+        );
         Type = typeof(ListGraphType<SomeGraphType>);
     }
 
