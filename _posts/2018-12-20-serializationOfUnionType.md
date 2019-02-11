@@ -1,3 +1,5 @@
+
+
 ---
 layout: post
 title: Serialization of F# UnionType
