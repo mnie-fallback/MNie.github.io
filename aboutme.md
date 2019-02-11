@@ -6,7 +6,7 @@ title: About me
 Hi,
 
 my name is Michał Niegrzybowski I'm a .Net developer, I finished Informatics at Gdańsk University of Technology (GUT).
-I'm currently working for [Ciklum](https://www.ciklum.com/) as a senior software engineer.
+I'm currently working for [Spotio](https://spotio.com/) as a senior software engineer/team leader. Beyond of that I'm also working in a side projects as .net developer. If you have some interesting offer for me you could ping me at twitter @MNie8 or send me an email michal.niegrzybowski at gmail dot com.
 
 ### More information
 
