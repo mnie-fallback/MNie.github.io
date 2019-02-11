@@ -1,3 +1,8 @@
+---
+layout: post
+title: Serialization of F# UnionType
+---
+
 Hi,
 
 as a response to some situations in our systems, we want to send real-time notifications to users. Because of that, we are using an Ably.io library. But as long as the application grows we encounter a problem. Because our application starts working slowly, consume more resources which means it costs us more and the most important thing is that we see that some of the events were duplicated which causes a lot of errors in web and mobile application.
