@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Testing continously application with Canopy
+title: Testing application continuously with Canopy and Azure Pipelines
 ---
 
 Hi,
