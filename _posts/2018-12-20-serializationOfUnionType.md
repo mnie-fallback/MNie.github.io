@@ -62,7 +62,7 @@ What I want to achieve in the serialized object is information only about the va
 type EnumAsStringConverter () = 
     inherit JsonConverter() 
     
-    override this.CanConvert objectType = true; 
+    override this.CanConvert objectType = FSharpType.IsUnion(objectType) 
     override this.WriteJson (writer: JsonWriter, value: obj, serializer: JsonSerializer): unit = 
         if value = null then writer.WriteValue value 
         else 
