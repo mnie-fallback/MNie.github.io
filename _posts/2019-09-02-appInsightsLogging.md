@@ -1,6 +1,6 @@
 ---
 layout: post
-title: AppInsights logging requests
+title: AppInsights logging full requests with hidding sensitive data
 ---
 
 In our application, daily, we are using Application Insights to report all requests to and from us so we could monitor the actual status of a system. Thanks to that we are sure that our clients wouldn't experience unpleasantness because of not working or slowly working application. To look at the body of each request and response, we store them in a separate Log database. As long as the application growth, we have more and more users and regions to handle we thought it would be easier for us to have everything in one place. So we planned to involve everything in ApplicationInsights.
