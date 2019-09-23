@@ -6,6 +6,7 @@ title: Testing application continuously with Canopy and Azure Pipelines
 Hi,
 
 in a side project in which I'm working right now, we encounter a problem that after we made some changes we break some other functionality on production. It's always a pain in a heart when you discover that you break up something on production and have to fix that immediately. Fix to production arrives in less than a minute, but I don't want to have such situations in a future, especially that I'm not a person that discovers this error. It is also a little bit disappointing that besides having a nice base of unit and integration tests something like that happened.
+Hi,
 
 So going into details the problem was that we passed invalid data from a front-end side to backend app when changing a value in one of the dropdowns. So the result was a `500` status code from backend.
 
