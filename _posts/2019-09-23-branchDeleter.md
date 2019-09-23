@@ -7,7 +7,7 @@ Hi,
 
 In every project which I worked, I encounter the same problem. After some time there were a lot of branches on the origin. That causes a not necessary use of space and problems when searching for the right branch. Because of that, I decided to write a utility tool which would fix that issue.
 
-The main purpose of the application was to delete regularly all branches from all projects, all repositories in our AzureDevops space. Those branches have to meet the following requirements to be deleted:
+The main purpose of the application was to delete regularly all branches from all projects and repositories in our AzureDevops space. Those branches have to meet the following requirements to be deleted:
 - a branch should be older than 1 month;
 - a branch should not have any open pull requests;
 - the branch name is not equal to test, nor beta, nor release.
@@ -17,14 +17,24 @@ One of the requirements was to run the code responsible for deletion periodicall
 I started by creating an Azure function of type TimeTrigger, but it is not so obvious to create a function like that in F#. First of all, you have to create a TimeTrigger function in C# from Visual Studio Code like that:
 
 ![vscode1](https://mnie.github.com/img/23-09-2019BranchDeleter/vscodecreate1.png)
+
+
 ![vscode2](https://mnie.github.com/img/23-09-2019BranchDeleter/vscodecreate2.png)
+
+
 ![vscode3](https://mnie.github.com/img/23-09-2019BranchDeleter/vscodecreate3.png)
+
+
 ![vscode4](https://mnie.github.com/img/23-09-2019BranchDeleter/vscodecreate4.png)
 
 Or from Visual Studio like that:
 
 ![vs1](https://mnie.github.com/img/23-09-2019BranchDeleter/vscreate1.png)
+
+
 ![vs2](https://mnie.github.com/img/23-09-2019BranchDeleter/vscreate2.png)
+
+
 ![vs3](https://mnie.github.com/img/23-09-2019BranchDeleter/vscreate3.png)
 
 Then you have to change an extension of a project file from `.csproj` to `.fsproj` beyond that, we want to explicitly set the value of `FSharp.Core` dependency so we set it to `4.7.0`. Next thing is to delete a `.cs` file which is not needed here and adds a new `.fs` file to the project. Content of this file should look like this:
@@ -118,7 +128,7 @@ module Creator
         newRef
 ```
 
-I think there is no need to going into this code, as long as it is simply creating an object with valid property values. But as long as we have or know how to create a ref to delete we could use a function named `UpdateRefsAsync` which would delete branches. The whole combined code to fetch repositories, branches and delete branches at the end looks like this:
+I think there is no need to going into this code, as long as it simply creates an object with valid property values. But as long as we have or know how to create a ref to delete we could use a function named `UpdateRefsAsync` which would delete branches. The whole combined code to fetch branches and delete them at the end looks like this:
 
 ```fsharp
 let private deleteBranchesFrom (config: Configuration.Config) (client: GitHttpClient) (log: ILogger) (repo: GitRepository) =
@@ -257,6 +267,8 @@ We go to the project and click publish on it. Set all the information and click 
 If we enable AppInsights we could also check if our function is working:
 
 ![branchdeleter](https://mnie.github.com/img/23-09-2019BranchDeleter/branchdeleter.png)
+
+
 ![branchdeleter2](https://mnie.github.com/img/23-09-2019BranchDeleter/branchdeleter2.png)
 
 To summarize, thanks to the above code we could keep our codebase in terms of branches in a good shape, without any not relevant branches that reside in repositories for months or even years. Because someone forgot to check a checkbox to delete his branch after a merge of a pull request. You could found the full source code [here](https://github.com/MNie/BranchDeleter).
