@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Visualization of estates on a map via Fable
+title: Visualization of estates on a map with Fable
 ---
 
 Hi,
