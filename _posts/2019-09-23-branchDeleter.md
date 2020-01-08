@@ -271,7 +271,7 @@ If we enable AppInsights we could also check if our function is working:
 
 ![branchdeleter2](https://mnie.github.com/img/23-09-2019BranchDeleter/branchdeleter2.png)
 
-To summarize, thanks to the above code we could keep our codebase in terms of branches in a good shape, without any not relevant branches that reside in repositories for months or even years. Because someone forgot to check a checkbox to delete his branch after a merge of a pull request. You could found the full source code [here](https://github.com/MNie/BranchDeleter).
+To summarize, thanks to the above code we could keep our codebase in terms of branches in a good shape, without any irrelevant branches that reside in repositories for months or even years. Because someone forgot to check a checkbox to delete his branch after a merge of a pull request. You could found the full source code [here](https://github.com/MNie/BranchDeleter).
 
 Thanks for reading :)
 
