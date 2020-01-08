@@ -5,7 +5,7 @@ title: Visualization of estates on a map via Fable
 
 Hi,
 
-From time to time I look at bailiff auctions. To check if there are some interesting properties for sale. If I want to check where they are located I have to go into details of each auction. I felt it would be great to see all of them on the map, so I could filter them by localization or district.
+from time to time I look at bailiff auctions. To check if there are some interesting properties for sale. If I want to check where they are located I have to go into details of each auction. I felt it would be great to see all of them on the map, so I could filter them by localization or district.
 
 I decided to write an application that would gather information about auctions in FABLE. Based on that information I want to show markers on a map with a prize, date of auction and a link to full details of an auction inside of it.
 
@@ -15,7 +15,7 @@ I started from creating a blank project. (Thanks to [SAFE Template](https://gith
 dotnet new -i Bailif –server Saturn –communication remoting –deploy docker 
 ```
 
-Thanks to the above I created a blank project. So I could start by writing the logic of an application. First of all, I want to download information about available properties auctions in the city. I decided that by default I would download data for `Gdańsk`. Looking at the site with auctions I see that communication is done by forms:
+Thanks to the above I created a blank project. So I could start by writing the logic of an application. First of all, I want to download information about available estates auctions in the city. I decided that by default I would download data for `Gdańsk`. Looking at the site with auctions I see that communication is done by forms:
 
 ![forms](https://mnie.github.com/img/08-01-2020AuctionsVisualizationWithFable/search.jpg)
 
@@ -43,7 +43,7 @@ let fetchHtml (city) =
 
 I used [http.fs](https://github.com/haf/Http.fs) and [hopac](https://github.com/Hopac/Hopac) libraries. In response, I get the full HTML page which I have to parse and gather the data I want to show on a map.
 
-Going to parsing. I was thinking about using HtmlDocument, HtmlProvider, and HtmlAgilityPack. Because an app was written in F# the last option goes away. In terms of optimization of source files (I don't want to have files of hundred of lines, because of templates `send` to HtmlProvider) the second option was also refused. So I used HtmlDocument. List of auctions looks like that:
+Going to parsing. I was thinking about using HtmlDocument, HtmlProvider, and HtmlAgilityPack. Because an app was written in F# the last option goes away. In terms of optimization of source files (I don't want to have files of hundred of lines, because of templates "send" to HtmlProvider) the second option was also refused. So I used HtmlDocument. List of auctions looks like that:
 
 ![list](https://mnie.github.com/img/08-01-2020AuctionsVisualizationWithFable/list.jpg)
 
@@ -217,7 +217,7 @@ let parseAuction (html) =
 
 ```
 
-The address is in the following format `city, street, house number` because I want to show it on a map I need to somehow translate it to longitude and latitude. This is why I pass the `human-readable` address to a `translateAddressToCoord` function which has a task of reverse geocoding. To achieve it I used `nominatim` service to which I send a GET request and then parse a response to get lng/lat.
+The address is in the following format `city, street, house number` because I want to show it on a map I need to somehow translate it to longitude and latitude. This is why I pass the `human-readable` address to a `translateAddressToCoord` function which has a task of reverse geocoding. To achieve it I used [nominatim](https://nominatim.openstreetmap.org/) service to which I send a GET request and then parse a response to get lng/lat.
 
 ```fsharp
 type CoordinatesResponse = JsonProvider<"""
@@ -301,8 +301,6 @@ module Auctions =
         |> Parser.parseAuction
 
     let get =
-        configuration.chromeDir <- AppDomain.CurrentDomain.BaseDirectory
-
         Fetcher.fetchHtml
         >> Parser.parseHtml
         >> fun x ->
@@ -438,6 +436,7 @@ type Msg =
 I thought that every user could:
 - change input (SearchChanged);
 - submit input (Search).
+
 And the server could respond with:
 - initial data (Init);
 - filtered data (Filtered);
@@ -445,6 +444,8 @@ And the server could respond with:
 As long as messages were defined as follow we could go to the message handling.
 
 ```fsharp
+type Model = { Search: string; Auctions: Auction seq; Zoom: LatLngExpression}
+
 let update (msg : Msg) (currentModel : Model) : Model * Cmd<Msg> =
     match currentModel.Auctions, msg with
     | _, Search city ->
@@ -485,7 +486,7 @@ let update (msg : Msg) (currentModel : Model) : Model * Cmd<Msg> =
 
 Based on a type of a message I change the actual state of an application (SearchChanged, Error, Init, Filtered) or ask the backend side for data (Search). Also if the message would have an error msg inside I send another command with `Error`.
 
-The code looks pretty simple. You could notice that we have here a `cascade` of messages. For example, when a user submits an input a server action is invoked. When it returns some data, a `filtered` or `error` message to handle that are sent. One handling looks a little bit different. It is a `filtered` message handling, where the calculation of localization of the first home also happens. So the map could be moved to this point. No matter which city user would search. The map will auto adjust to a valid region. Of course, I could count here a centroid of all points but I want to keep it very simple.
+The code looks pretty simple. You could notice that we have here a `cascade` of messages. For example, when a user submits an input a server action is invoked. When it returns some data, a `filtered` or `error` message are sent. One handling looks a little bit different. It is a `filtered` message handling, where the calculation of localization of the first home also happens. So the map could be moved to this point. No matter which city user would search. The map will auto adjust to a valid region. Of course, I could count here a centroid of all points but I want to keep it very simple.
 
 The definition and handling of messages are done. So I could show a map without any markers. I would show a leaflet map. To add it, I wrote the following code:
 
@@ -534,9 +535,9 @@ Leaflet.icon?Default?imagePath <- "//cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.
 }
 ```
 
-Remembering above, a map should be visible.
+Having in mind above, a map should be visible.
 
-![map](https://mnie.github.com/img/08-01-2020AuctionsVisualizationWithFable/map.jpg)
+![map](https://mnie.github.com/img/08-01-2020AuctionsVisualizationWithFable/blank.jpg)
 
 Having a blank map, I could show some markers on it. Previously I show how to handle messages with data information about auctions. These auctions are available in an app state. Thanks to that, I could show some markers. This is why `mapElements` function was created:
 
@@ -584,6 +585,8 @@ let mapElements model =
 ```
 
 For each element in a table I get from a server I create a marker. Set the position of it and create a popup with a short description of the auction (price, date, link to details).
+
+![map](https://mnie.github.com/img/08-01-2020AuctionsVisualizationWithFable/markers.jpg)
 
 The map and markers are visible. The only missing thing is an input that would accept strings and would trigger a search "function" after pushing the `submit` button. Code that is responsible for rendering a button:
 
@@ -638,7 +641,7 @@ Creation of Web App on Azure
 
 ![creation](https://mnie.github.com/img/08-01-2020AuctionsVisualizationWithFable/dockersetup.png)
 
-When the deployment is ready I need to do one additional thing (as SAFE stack [stated](https://safe-stack.github.io/docs/template-docker/)). We need to map port 8085 which is used by Giraffe to port 80.
+When the deployment is ready I need to do one additional thing (as SAFE stack docs [stated](https://safe-stack.github.io/docs/template-docker/)). We need to map port 8085 which is used by Giraffe to port 80.
 
 ```bash
 az webapp config appsettings set --resource-group RESOURCE --name APPNAME --settings WEBSITES_PORT=8085
@@ -646,7 +649,7 @@ az webapp config appsettings set --resource-group RESOURCE --name APPNAME --sett
 
 How finally the applications looks like:
 
-![final](https://mnie.github.com/img/08-01-2020AuctionsVisualizationWithFable/map.jpg)
+![final](https://mnie.github.com/img/08-01-2020AuctionsVisualizationWithFable/withoutmarkers.jpg)
 
 Right now I could finish this article. But as you may see in the above picture there is a map without any markers. Why? Because a page from which I scrap the data change a little bit from time when I implement the whole application. In every request, there should be included a `_requestValidation` field and a `cookie`. I decided that instead of that I would use the `canopy` to gather a full page after some on-site filtering. I modified code responsible for downloading a list of auctions:
 
@@ -751,7 +754,30 @@ The only minus of a `new` solution is the performance. Because the previous solu
 
 Right now everything should work just fine locally. I need some adjustments so the canopy would be run inside of a docker. To make it happen I have to do the following things:
 - copy chrome driver in a server.fsproj to output folder;
-- install chrome on a docker image.
+```fsharp
+<ItemGroup>
+<Content Include="chromedriver.exe">
+    <CopyToOutputDirectory>CopyIfNewer</CopyToOutputDirectory>
+</Content>
+<Content Include="chromedriver">
+    <CopyToOutputDirectory>CopyIfNewer</CopyToOutputDirectory>
+</Content>
+</ItemGroup>
+```
+- install chrome in a docker image.
+```fsharp
+
+ENV CHROME_DRIVER_VERSION 79.0.3945.36
+
+RUN apt-get update && apt-get install -y gnupg2 && apt-get install -y wget
+
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+      && sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
+      && apt-get update \
+      && apt-get install xvfb unzip google-chrome-stable -y \
+      && wget https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip \
+      && unzip -d /usr/local/bin chromedriver_linux64.zip
+```
 
 To summarize. In this article, I show how to combine two possibilities of scraping data from a webpage (if it doesn't have an API). And also how to write a simple application that simply does something in Fable. I hope you enjoyed this article :)
 
