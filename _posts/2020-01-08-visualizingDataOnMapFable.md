@@ -782,4 +782,5 @@ RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key
 To summarize. In this article, I show how to combine two possibilities of scraping data from a webpage (if it doesn't have an API). And also how to write a simple application that simply does something in Fable. I hope you enjoyed this article :)
 
 Thanks!
+
 Full repo [here](https://github.com/MNie/Bailif.Auctions)
