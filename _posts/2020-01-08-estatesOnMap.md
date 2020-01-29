@@ -757,10 +757,10 @@ Right now everything should work just fine locally. I need some adjustments so t
 ```fsharp
 <ItemGroup>
 <Content Include="chromedriver.exe">
-    <CopyToOutputDirectory>CopyIfNewer</CopyToOutputDirectory>
+    <CopyToOutputDirectory>CopyAlways</CopyToOutputDirectory>
 </Content>
 <Content Include="chromedriver">
-    <CopyToOutputDirectory>CopyIfNewer</CopyToOutputDirectory>
+    <CopyToOutputDirectory>CopyAlways</CopyToOutputDirectory>
 </Content>
 </ItemGroup>
 ```

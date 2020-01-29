@@ -51,17 +51,20 @@ module Auctions =
 That's all from a code perspective, but I need to do some adjustments so the canopy would be run inside of a docker. To make it happen I have to do the following things:
 
 - copy chrome driver in a server.fsproj to output folder;
+
 ```fsharp
 <ItemGroup>
 <Content Include="chromedriver.exe">
-    <CopyToOutputDirectory>CopyIfNewer</CopyToOutputDirectory>
+    <CopyToOutputDirectory>CopyAlways</CopyToOutputDirectory>
 </Content>
 <Content Include="chromedriver">
-    <CopyToOutputDirectory>CopyIfNewer</CopyToOutputDirectory>
+    <CopyToOutputDirectory>CopyAlways</CopyToOutputDirectory>
 </Content>
 </ItemGroup>
 ```
+
 - install chrome in a docker image.
+
 ```fsharp
 
 ENV CHROME_DRIVER_VERSION 79.0.3945.36
