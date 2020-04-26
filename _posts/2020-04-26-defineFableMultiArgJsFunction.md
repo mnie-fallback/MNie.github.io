@@ -9,7 +9,7 @@ if you spot the name "proper" in a title of this post I wanna say, that I don't 
 
 So to give a little bit of a context for this article. When I worked with a guacamole protocol and it's javascript implementation I have to invoke a function named `oninstruction(arg1, arg2)`. There is no available binding for it in `Fable.Browser` so we do our implementation. But after some tries, we discover, that we don't invoke in the javascript method that we want. So how we could define a function in F# with multiple parameters and how they would be transformed via Fable to Javascript?
 
-1. Define function parameters as `partial application`
+* Define function parameters as `partial application`
 
 ```fsharp
 member val function: `TArg1 -> `TArg2 -> `TResult
@@ -25,7 +25,7 @@ function (arg1){
 
 Not really what we want to achieve, right?
 
-2. Define function parameters as `tuple`
+* Define function parameters as `tuple`
 
 ```fsharp
 member val function: `TArg1 * `TArg2 -> `TResult
@@ -39,7 +39,7 @@ function (tupleArg) {...}
 
 The `tupleArg` would be a tuple with 2 elements inside. So still not the result we want to achieve
 
-3. Define a function with a `Func<_>`
+* Define a function with a `Func<_>`
 
 ```fsharp
 member val function: Func<`TArg1, `TArg2, `TResult>
